@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=20261011c">
+<link rel="stylesheet" href="assets/css/style.css?v=20261011d">
 </head>
 <body>
 
@@ -243,11 +243,18 @@
         <div class="midia-trilho" id="midia-trilho">
           <div class="midia-slide" role="tabpanel" aria-label="Por dentro do modelo">
             <div class="modelo" id="modelo">
-              <div class="modelo-img">
+              <div class="modelo-quadro">
+              <div class="zoom" role="group" aria-label="Zoom da imagem">
+                <button type="button" id="zoom-menos" aria-label="Diminuir zoom">−</button>
+                <span id="zoom-valor" aria-live="polite">100%</span>
+                <button type="button" id="zoom-mais" aria-label="Aumentar zoom">+</button>
+              </div>
+              <div class="modelo-img" id="modelo-quadro">
                 <div class="modelo-faixa" id="modelo-faixa"></div>
                 <div class="modelo-tela" id="modelo-img">
                   <img src="assets/img/simul8-modelo-anotado.jpg" alt="Modelo de simulação da rede da Green Mining no SIMUL8, com os cinco centros de coleta no alto e o hub embaixo" width="2466" height="760">
                 </div>
+              </div>
               </div>
               <div class="modelo-info" aria-live="polite">
                 <button type="button" class="seta" id="modelo-ant" aria-label="Elemento anterior">‹</button>
@@ -495,11 +502,11 @@
 <button type="button" class="fechar-tela" id="sair-tela" aria-label="Sair da tela cheia" hidden>✕ Fechar</button>
 <div class="aviso-estande" id="aviso-estande" hidden>Apresentação automática · toque em qualquer lugar para explorar</div>
 
-<script src="assets/js/rccp/arrival-profile-2025.js?v=20261011c"></script>
-<script src="assets/js/rccp/rccp-model.js?v=20261011c"></script>
-<script src="assets/js/rccp/rccp-baseline.js?v=20261011c"></script>
-<script src="assets/js/dados.js?v=20261011c"></script>
-<script src="assets/js/simulador.js?v=20261011c"></script>
-<script src="assets/js/app.js?v=20261011c"></script>
+<script src="assets/js/rccp/arrival-profile-2025.js?v=20261011d"></script>
+<script src="assets/js/rccp/rccp-model.js?v=20261011d"></script>
+<script src="assets/js/rccp/rccp-baseline.js?v=20261011d"></script>
+<script src="assets/js/dados.js?v=20261011d"></script>
+<script src="assets/js/simulador.js?v=20261011d"></script>
+<script src="assets/js/app.js?v=20261011d"></script>
 </body>
 </html>

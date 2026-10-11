@@ -555,7 +555,7 @@
       s.style.left = (r[0] / W * 100) + "%"; faixa.appendChild(s);
     });
     var hub = document.createElement("span"); hub.className = "modelo-rotulo hub"; hub.textContent = "Hub central";
-    hub.style.left = (1560 / W * 100) + "%"; hub.style.top = (560 / H * 100) + "%"; caixa.appendChild(hub);
+    hub.style.left = (1480 / W * 100) + "%"; hub.style.top = (695 / H * 100) + "%"; caixa.appendChild(hub);
     var botoes = [], atual = 0;
     function marca(i) {
       atual = (i + MARCAS.length) % MARCAS.length;
@@ -574,6 +574,47 @@
     $("#modelo-ant").addEventListener("click", function () { marca(atual - 1); });
     $("#modelo-prox").addEventListener("click", function () { marca(atual + 1); });
     marca(0);
+
+    /* Zoom e arrasto da imagem */
+    var quadro = $("#modelo-quadro"), faixaEl = $("#modelo-faixa"), NIVEIS = [1, 1.5, 2, 3], nivel = 0;
+    function alturaBase() {
+      var z = NIVEIS[nivel];
+      return faixaEl.offsetHeight + (caixa.offsetWidth / z) * H / W;
+    }
+    function aplicaZoom(n) {
+      var antigo = NIVEIS[nivel], novo = NIVEIS[n];
+      var cx = (quadro.scrollLeft + quadro.clientWidth / 2) / (quadro.scrollWidth || 1);
+      var cy = (quadro.scrollTop + quadro.clientHeight / 2) / (quadro.scrollHeight || 1);
+      if (antigo === 1) quadro.style.height = "";
+      var base = alturaBase();
+      nivel = n;
+      quadro.style.setProperty("--zoom", novo);
+      quadro.style.height = novo > 1 ? base + "px" : "";
+      quadro.classList.toggle("zoom-ativo", novo > 1);
+      quadro.scrollLeft = cx * quadro.scrollWidth - quadro.clientWidth / 2;
+      quadro.scrollTop = cy * quadro.scrollHeight - quadro.clientHeight / 2;
+      $("#zoom-valor").textContent = Math.round(novo * 100) + "%";
+      $("#zoom-menos").disabled = n === 0;
+      $("#zoom-mais").disabled = n === NIVEIS.length - 1;
+    }
+    $("#zoom-mais").addEventListener("click", function () { if (nivel < NIVEIS.length - 1) aplicaZoom(nivel + 1); });
+    $("#zoom-menos").addEventListener("click", function () { if (nivel > 0) aplicaZoom(nivel - 1); });
+    window.addEventListener("resize", function () { if (NIVEIS[nivel] > 1) { quadro.style.height = ""; quadro.style.height = alturaBase() + "px"; } });
+    var arrasto = null, moveu = false;
+    quadro.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse" || e.button !== 0 || NIVEIS[nivel] === 1) return;
+      arrasto = { x: e.clientX, y: e.clientY, l: quadro.scrollLeft, t: quadro.scrollTop }; moveu = false;
+    });
+    window.addEventListener("pointermove", function (e) {
+      if (!arrasto) return;
+      var dx = e.clientX - arrasto.x, dy = e.clientY - arrasto.y;
+      if (!moveu && Math.abs(dx) + Math.abs(dy) > 5) { moveu = true; quadro.classList.add("arrastando"); }
+      if (moveu) { quadro.scrollLeft = arrasto.l - dx; quadro.scrollTop = arrasto.t - dy; }
+    });
+    window.addEventListener("pointerup", function () { arrasto = null; quadro.classList.remove("arrastando"); });
+    quadro.addEventListener("click", function (e) { if (moveu) { e.stopPropagation(); e.preventDefault(); moveu = false; } }, true);
+    aplicaZoom(0);
+    window.__zoomModelo = { aplica: aplicaZoom, recalcula: function () { if (NIVEIS[nivel] > 1) { quadro.style.height = ""; quadro.style.height = alturaBase() + "px"; } } };
     window.__marcaModelo = marca;
   })();
 
@@ -623,12 +664,14 @@
     function abre() {
       aberto = slide === 0 ? $("#modelo") : $("#video-simul8");
       aberto.classList.add("tela-cheia"); document.body.classList.add("com-tela-cheia"); sair.hidden = false;
+      requestAnimationFrame(window.__zoomModelo.recalcula);
       var d = document.documentElement;
       if (!document.fullscreenElement && d.requestFullscreen) { d.requestFullscreen().then(function () { entrouNativo = true; }).catch(function () {}); }
     }
     function fecha() {
       if (!aberto) return;
       aberto.classList.remove("tela-cheia"); document.body.classList.remove("com-tela-cheia"); sair.hidden = true; aberto = null;
+      requestAnimationFrame(window.__zoomModelo.recalcula);
       if (entrouNativo && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
       entrouNativo = false;
     }
@@ -637,6 +680,8 @@
     document.addEventListener("keydown", function (e) {
       if (!aberto) return;
       if (e.key === "Escape") fecha();
+      else if (aberto.id === "modelo" && (e.key === "+" || e.key === "=")) $("#zoom-mais").click();
+      else if (aberto.id === "modelo" && e.key === "-") $("#zoom-menos").click();
       else if (aberto.id === "modelo" && (e.key === "ArrowRight" || e.key === "ArrowDown")) { e.preventDefault(); $("#modelo-prox").click(); }
       else if (aberto.id === "modelo" && (e.key === "ArrowLeft" || e.key === "ArrowUp")) { e.preventDefault(); $("#modelo-ant").click(); }
     });

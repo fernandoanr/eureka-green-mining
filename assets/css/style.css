@@ -393,8 +393,20 @@ body:not(.estande) .dica-setas { display: none; }
 .modelo { display: grid; gap: 10px; position: relative; }
 .modelo-img { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--borda); background: #fff; }
 .modelo-img img { width: 100%; height: auto; }
-.modelo-faixa { position: relative; height: clamp(26px, 2.6vw, 36px); background: var(--chao-2); border-bottom: 1px solid var(--borda); }
+.modelo-quadro { position: relative; min-width: 0; }
+.modelo > * { min-width: 0; }
+.modelo-img { overflow: auto; overscroll-behavior: contain; }
+.modelo-img.zoom-ativo { cursor: grab; }
+.modelo-img.arrastando { cursor: grabbing; user-select: none; }
+.modelo-faixa { position: sticky; top: 0; z-index: 2; height: clamp(26px, 2.6vw, 36px); background: var(--chao-2); border-bottom: 1px solid var(--borda); }
+.modelo-faixa, .modelo-tela { width: calc(var(--zoom, 1) * 100%); }
 .modelo-tela { position: relative; }
+.modelo-tela img { -webkit-user-drag: none; }
+.zoom { position: absolute; right: 12px; bottom: 12px; z-index: 4; display: flex; align-items: center; gap: 2px; background: rgba(11,17,16,.9); border: 1px solid var(--borda); border-radius: 999px; padding: 4px; }
+.zoom button { width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent; color: var(--texto); font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.zoom button:hover:not(:disabled) { background: var(--gm); }
+.zoom button:disabled { opacity: .35; cursor: default; }
+.zoom span { min-width: 48px; text-align: center; font: 600 .8rem var(--f-dado); color: var(--suave); }
 .modelo-rotulo { position: absolute; top: 50%; transform: translate(-50%, -50%); font: 700 clamp(.6rem, 1vw, .85rem) var(--f-dado); color: #fff; background: var(--gm); border-radius: 6px; padding: 2px 8px; white-space: nowrap; pointer-events: none; }
 .modelo-rotulo.hub { background: var(--chao); border: 1px solid var(--neon); color: var(--neon); }
 .marca { position: absolute; transform: translate(-50%, -50%); width: clamp(20px, 2.2vw, 32px); height: clamp(20px, 2.2vw, 32px); border-radius: 50%; border: 2px solid var(--chao); background: var(--neon); color: var(--chao); font: 800 clamp(.62rem, 1vw, .85rem) var(--f-dado); display: grid; place-items: center; cursor: pointer; padding: 0; box-shadow: 0 0 0 4px rgba(20,224,117,.28); transition: transform .2s, box-shadow .2s; }
@@ -409,12 +421,12 @@ body:not(.estande) .dica-setas { display: none; }
 .fechar-tela { position: fixed; top: 14px; right: 14px; z-index: 310; border-radius: 999px; border: 1px solid var(--neon); background: var(--chao); color: var(--texto); font: 600 .9rem var(--f-dado); padding: 10px 16px; cursor: pointer; }
 .fechar-tela[hidden] { display: none; }
 .tela-cheia { position: fixed; inset: 0; z-index: 300; background: var(--chao); padding: 24px; align-content: center; justify-items: center; overflow: auto; }
-.tela-cheia .modelo-img, .tela-cheia .modelo-info { width: min(100%, calc((100vh - 170px) * 3.1)); }
-.tela-cheia.modelo .modelo-img { max-width: 100%; }
+.tela-cheia .modelo-quadro, .tela-cheia .modelo-info { width: min(100%, calc((100vh - 170px) * 3.1)); }
+.tela-cheia.modelo .modelo-quadro { max-width: 100%; }
 .video-simul8.tela-cheia { gap: 14px; }
 .video-simul8.tela-cheia .video-moldura, .video-simul8.tela-cheia .video-controles { width: min(100%, calc((100vh - 140px) * 3.24)); }
 body.com-tela-cheia { overflow: hidden; }
-@media (max-width: 860px) { .modelo-img { overflow-x: auto; } .modelo-faixa, .modelo-tela { min-width: 900px; } .tela-cheia .modelo-img { width: 100%; } .tela-cheia .modelo-faixa, .tela-cheia .modelo-tela { min-width: 1500px; } }
+@media (max-width: 860px) { .modelo-faixa, .modelo-tela { min-width: calc(900px * var(--zoom, 1)); } .tela-cheia .modelo-img { width: 100%; } .tela-cheia .modelo-faixa, .tela-cheia .modelo-tela { min-width: calc(1500px * var(--zoom, 1)); } }
 @media (max-width: 560px) { .modelo-info { grid-template-columns: 34px 1fr 34px; padding: 10px 8px; } .seta { width: 34px; height: 34px; } .midia-topo #tela-cheia { margin-left: auto; } }
 .so-celular { display: none; }
 @media (max-width: 860px) { .so-celular { display: inline; } }
