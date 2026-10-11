@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Green Mining · Capacidade até 2030</title>
+<meta name="description" content="Planejamento agregado em sistemas de logística reversa: aplicação à Green Mining. TCC de Engenharia de Produção do Instituto Mauá de Tecnologia, Eureka 2026.">
+<meta name="theme-color" content="#0b1110">
+<meta property="og:title" content="A logística reversa da Green Mining aguenta crescer até 2030?">
+<meta property="og:description" content="Planejamento de capacidade e simulação de eventos discretos aplicados à Green Mining. Eureka 2026, Stand 9.">
+<meta property="og:image" content="assets/img/teaser-capa.jpg">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="barra" id="barra">
+  <a class="barra-marca" href="#inicio" aria-label="Início">
+    <img src="assets/img/logo-green-mining.png" alt="Green Mining" width="1920" height="361">
+  </a>
+  <nav class="barra-nav" aria-label="Seções">
+    <a href="#resumo">Resumo</a>
+    <a href="#problema">Problema</a>
+    <a href="#operacao">Operação</a>
+    <a href="#metodo">Método</a>
+    <a href="#resultados">Resultados</a>
+    <a href="#e-se">E se?</a>
+    <a href="#valor">Valor</a>
+  </nav>
+  <button class="botao-estande" id="botao-estande" type="button" aria-pressed="false" title="Tela cheia com apresentação automática">Modo estande</button>
+</header>
+
+<div class="trilho-linha" aria-hidden="true"><span id="progresso"></span></div>
+
+<main>
+
+<!-- 1. ABERTURA -->
+<section class="tela abertura" id="inicio" data-titulo="Início">
+  <video class="abertura-video" id="teaser" src="assets/video/teaser.mp4" poster="assets/img/teaser-capa.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="abertura-veu"></div>
+  <div class="abertura-conteudo">
+    <div class="logos">
+      <img src="assets/img/logo-maua.png" alt="Instituto Mauá de Tecnologia" class="logo-maua" id="logo-maua">
+      <img src="assets/img/logo-eureka.png" alt="Eureka 2026" class="logo-eureka">
+      <img src="assets/img/selo-green-mining.jpg" alt="Green Mining" class="logo-selo">
+    </div>
+    <p class="olho">Eureka 2026 · Stand 9 · PMN01</p>
+    <h1>A logística reversa da Green Mining aguenta crescer até&nbsp;2030?</h1>
+    <p class="abertura-sub">Planejamento agregado em sistemas de logística reversa, aplicação à Green Mining</p>
+    <div class="acoes">
+      <a class="botao botao-cheio" href="#problema">Começar a jornada</a>
+      <a class="botao" href="#resumo">Resumo em 1 minuto</a>
+      <a class="botao" href="#e-se">Testar o simulador</a>
+      <button class="botao botao-som" id="botao-som" type="button" aria-pressed="false">Ligar som do vídeo</button>
+    </div>
+  </div>
+  <svg class="linha-luz" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,96 C220,96 300,96 420,84 C560,70 600,30 760,30 C920,30 980,64 1200,64"/>
+    <circle cx="420" cy="84" r="9"/>
+  </svg>
+</section>
+
+<!-- 1b. RESUMO -->
+<section class="tela" id="resumo" data-titulo="Resumo">
+  <div class="caixa">
+    <p class="olho">O trabalho em 1 minuto</p>
+    <h2>Do problema ao plano, em nove passos</h2>
+    <p class="lead">Toque em um passo para ver a parte detalhada.</p>
+    <ol class="resumo-grade">
+      <li><a href="#problema"><span class="resumo-n">01</span><h3>O problema</h3><p>Só <b>8,3%</b> dos resíduos do Brasil chegam à reciclagem. Para crescer, a logística reversa precisa dar conta.</p></a></li>
+      <li><a href="#rede"><span class="resumo-n">02</span><h3>A rede</h3><p>Cinco centros de coleta e um hub em São Paulo receberam <b>22.043</b> chegadas de material em 2025.</p></a></li>
+      <li><a href="#operacao"><span class="resumo-n">03</span><h3>A operação</h3><p><b>8 etapas</b> levam a embalagem da chegada ao centro até a entrega ao reciclador.</p></a></li>
+      <li><a href="#desafio"><span class="resumo-n">04</span><h3>O desafio</h3><p>As chegadas crescem <b>105%</b> ao ano e o volume <b>35%</b>. Em 2030 a rede recebe <b>4,48×</b> o material de 2025.</p></a></li>
+      <li><a href="#metodo"><span class="resumo-n">05</span><h3>O método</h3><p>Dados de campo tratados, demanda projetada até 2030 e uma calculadora de capacidade própria.</p></a></li>
+      <li><a href="#lentes"><span class="resumo-n">06</span><h3>Duas lentes</h3><p>A conta agregada (RCCP) acha o gargalo. A simulação no SIMUL8 confirma e mostra os picos.</p></a></li>
+      <li><a href="#resultados"><span class="resumo-n">07</span><h3>Sem mudanças</h3><p>O caminhão passa do limite em <b>2027</b> e as equipes em <b>2028</b>. O gargalo muda de dono.</p></a></li>
+      <li><a href="#plano"><span class="resumo-n">08</span><h3>O plano</h3><p>Uma decisão por ano até 2030. Investimento <b>zero</b> em 2026 e 2027 e só <b>1</b> prensa comprada.</p></a></li>
+      <li><a href="#valor"><span class="resumo-n">09</span><h3>O valor</h3><p>Um cronograma de decisões, com o segundo caminhão decidido <b>2 anos</b> antes e recusa de só <b>0,30%</b> em 2028.</p></a></li>
+    </ol>
+    <div class="acoes acoes-centro">
+      <a class="botao botao-cheio" href="#e-se">Testar o simulador</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. PROBLEMA -->
+<section class="tela" id="problema" data-titulo="O resíduo">
+  <div class="caixa">
+    <p class="olho">O resíduo · o início da logística reversa</p>
+    <h2>Reciclar começa muito antes da reciclagem</h2>
+    <div class="duas-colunas">
+      <div class="texto">
+        <p class="grande">Para uma embalagem voltar a ser matéria-prima, alguém precisa recebê-la, pesar, guardar, transportar, separar, prensar e entregar ao reciclador. Isso é <strong>logística reversa</strong>, o caminho de volta dos produtos depois do consumo.</p>
+        <p>A <strong>Green Mining</strong> faz esse caminho com embalagens pós-consumo em São Paulo, combinando coleta capilar, consolidação física e rastreabilidade digital. O problema é bom de ter, a operação está crescendo rápido, e a pergunta é se a estrutura atual acompanha esse ritmo.</p>
+      </div>
+      <figure class="foto-moldura">
+        <img src="assets/img/cc-pinheiros.jpg" alt="Centro de coleta da Green Mining em Pinheiros" loading="lazy">
+        <figcaption>Centro de coleta de Pinheiros</figcaption>
+      </figure>
+    </div>
+    <div class="numeros-contexto">
+      <div class="numero"><span class="num" data-conta="80.96" data-casas="2">80,96</span><span class="un">milhões de t</span><p>de resíduos sólidos urbanos gerados no Brasil em 2023</p></div>
+      <div class="numero"><span class="num" data-conta="8.3" data-casas="1">8,3</span><span class="un">%</span><p>desse total chegou à reciclagem como material seco</p></div>
+      <div class="numero"><span class="num" data-conta="28" data-casas="0">28</span><span class="un">%</span><p>de crescimento da coleta seletiva em São Paulo entre 2022 e 2023</p></div>
+    </div>
+    <p class="fonte-mini">Dados nacionais da ABREMA (2024) e da Prefeitura de São Paulo (2025).</p>
+  </div>
+</section>
+
+<!-- 3. A REDE -->
+<section class="tela" id="rede" data-titulo="A rede">
+  <div class="caixa">
+    <p class="olho">Rede de coleta · São Paulo</p>
+    <h2>Cinco centros de coleta e um hub central</h2>
+    <p class="lead">Toque em uma unidade para ver o que ela recebeu em 2025.</p>
+    <div class="rede-grade">
+      <div class="mapa-caixa">
+        <svg class="mapa" id="mapa" viewBox="0 0 640 500" role="img" aria-label="Mapa estilizado da rede da Green Mining"></svg>
+      </div>
+      <aside class="ficha" id="ficha" aria-live="polite"></aside>
+    </div>
+    <div class="contadores">
+      <div><span class="num" data-conta="22043" data-casas="0">22.043</span><p>chegadas de material em 2025</p></div>
+      <div><span class="num" data-conta="397079.9" data-casas="2">397.079,90</span><p>kg recebidos no ano</p></div>
+      <div><span class="num">3</span><p>famílias de material, papelão, plástico e longa vida</p></div>
+      <div><span class="num">1</span><p>caminhão fazendo a ligação entre os centros e o hub</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. OPERAÇÃO -->
+<section class="tela" id="operacao" data-titulo="Operação">
+  <div class="caixa">
+    <p class="olho">Como a operação funciona</p>
+    <h2>O caminho de uma embalagem, em oito etapas</h2>
+    <p class="lead">Os pontos coloridos são os materiais andando pela rede. Toque em uma etapa para ver como ela funciona e os números usados no modelo.</p>
+    <div class="legenda-materiais">
+      <span><i class="m-papelao"></i>Papelão</span><span><i class="m-plastico"></i>Plástico</span><span><i class="m-longavida"></i>Longa vida</span>
+    </div>
+    <div class="fluxo-caixa">
+      <svg class="fluxo" id="fluxo" viewBox="0 0 1200 480" role="img" aria-label="Fluxo animado das oito etapas da operação"></svg>
+    </div>
+    <div class="etapa-painel" id="etapa-painel" aria-live="polite"></div>
+    <div class="acoes acoes-centro">
+      <button class="botao" type="button" id="abrir-bpmn">Ver o fluxograma completo (BPMN)</button>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DESAFIO -->
+<section class="tela" id="desafio" data-titulo="O desafio">
+  <div class="caixa">
+    <p class="olho">O desafio</p>
+    <h2>Mais gente trazendo menos material por vez</h2>
+    <div class="duas-colunas duas-colunas-largo">
+      <div class="texto">
+        <p class="grande">Entre 2024 e 2025, o volume recebido cresceu <strong>35%</strong> e o número de chegadas cresceu <strong>105%</strong>. Mantido esse ritmo, em 2030 a rede recebe <strong>1.780.519,55 kg</strong> em <strong>798.068 chegadas</strong>.</p>
+        <p>Como as chegadas crescem três vezes mais rápido que o volume, cada visita traz menos material. A massa média por chegada cai de <strong>18,01 kg</strong> em 2025 para <strong>2,23 kg</strong> em 2030. Isso muda quem sofre primeiro, o caminhão, que depende do peso e do volume, ou as equipes, que atendem cada chegada.</p>
+        <div class="pergunta">
+          <span class="olho">Questão central do trabalho</span>
+          <p>A capacidade instalada da Green Mining atende à demanda projetada até 2030?</p>
+        </div>
+      </div>
+      <div class="grafico-caixa">
+        <div class="alternar" role="group" aria-label="Indicador">
+          <button type="button" class="ativo" data-serie="massa" aria-pressed="true">Massa (kg/ano)</button>
+          <button type="button" data-serie="chegadas" aria-pressed="false">Chegadas por ano</button>
+          <button type="button" data-serie="porChegada" aria-pressed="false">kg por chegada</button>
+        </div>
+        <svg class="grafico" id="grafico-demanda" viewBox="0 0 560 340" role="img" aria-label="Demanda observada e projetada de 2024 a 2030"></svg>
+        <p class="nota-grafico"><span class="ponto-obs"></span>observado <span class="ponto-proj"></span>projetado</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. OBJETIVO E MÉTODO -->
+<section class="tela" id="metodo" data-titulo="Método">
+  <div class="caixa">
+    <p class="olho">Objetivo</p>
+    <h2>Avaliar se a capacidade instalada atende à demanda até 2030</h2>
+    <ul class="objetivos">
+      <li>Estruturar a base histórica de chegadas e projetar a demanda</li>
+      <li>Quantificar a capacidade de transporte, centros de coleta e hub</li>
+      <li>Desenvolver uma ferramenta de cálculo para a própria operação</li>
+      <li>Confrontar demanda e capacidade e achar o recurso crítico de cada ano</li>
+      <li>Verificar por simulação se o resultado se confirma diante da variabilidade</li>
+      <li>Comparar cenários de configuração da operação</li>
+    </ul>
+
+    <p class="olho espaco-topo">Do campo ao modelo</p>
+    <h2>Como o trabalho foi feito</h2>
+    <ol class="passos" id="passos">
+      <li><h3>Visitas e entrevistas</h3><p>Os centros e o hub foram visitados para entender regras, tempos e restrições de cada etapa.</p></li>
+      <li><h3>Tratamento dos dados</h3>
+        <div class="funil" aria-label="Funil do tratamento da base">
+          <div style="--w:100%"><b>116.816</b> linhas na base histórica</div>
+          <div style="--w:47.6%"><b>55.613</b> no recorte de 2025</div>
+          <div style="--w:27.7%"><b>32.348</b> dentro do escopo</div>
+          <div style="--w:18.9%"><b>22.043</b> chegadas</div>
+        </div>
+      </li>
+      <li><h3>Projeção da demanda</h3><p>As taxas observadas entre 2024 e 2025 foram aplicadas até 2030, por centro e por família de material.</p></li>
+      <li><h3>Planejamento de capacidade</h3><p>Uma calculadora própria confronta carga e capacidade de cada recurso, conferida por 48 testes automatizados.</p></li>
+      <li><h3>Simulação</h3><p>O modelo no SIMUL8 reproduz cada chegada, com filas, estoques e as regras reais de coleta e expedição.</p></li>
+      <li><h3>Cenários e validação</h3><p>As alternativas foram comparadas ano a ano e o resultado foi apresentado e validado pela Green Mining.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 7. DUAS LENTES -->
+<section class="tela" id="lentes" data-titulo="Duas lentes">
+  <div class="caixa">
+    <p class="olho">Principais ferramentas</p>
+    <h2>Duas lentes para olhar a mesma operação</h2>
+    <div class="lentes">
+      <article class="lente">
+        <span class="lente-tag">RCCP</span>
+        <h3>A conta da capacidade</h3>
+        <p>O planejamento agregado de capacidade (<em>Rough-Cut Capacity Planning</em>) soma a carga da semana e compara com o que cada recurso consegue fazer. É rápido, mostra onde está o gargalo e quanto falta.</p>
+        <p class="analogia">Como conferir se a semana cabe na agenda.</p>
+        <a class="botao" href="https://rccp-green-mining-capacidade.fernandogfa.chatgpt.site" target="_blank" rel="noopener">Abrir a calculadora</a>
+      </article>
+      <article class="lente">
+        <span class="lente-tag">SIMUL8</span>
+        <h3>O filme da operação</h3>
+        <p>A simulação de eventos discretos reproduz chegada por chegada, com sorteio dos intervalos, filas, estoque enchendo e caminhão sendo chamado. Mostra o que a média esconde, os picos.</p>
+        <p class="analogia">Como viver a semana, minuto a minuto.</p>
+      </article>
+    </div>
+    <figure class="video-simul8" id="video-simul8">
+      <video id="simul8" controls muted playsinline preload="metadata" poster="assets/img/simul8-modelo.jpg">
+        <source src="assets/video/simul8.mp4" type="video/mp4">
+      </video>
+      <div class="video-espera" id="video-espera">
+        <img src="assets/img/simul8-modelo.jpg" alt="Visão geral do modelo de simulação da rede da Green Mining no SIMUL8">
+        <span>Vídeo do modelo rodando em breve</span>
+      </div>
+      <figcaption>Modelo de simulação da rede da Green Mining no SIMUL8</figcaption>
+    </figure>
+    <div class="validacao">
+      <div><span class="num">5 · 4 · 2 · 2 · 2</span><p>viagens semanais por centro na simulação, iguais às da operação real</p></div>
+      <div><span class="num">15,00</span><p>viagens necessárias por semana, mesmo valor medido na empresa</p></div>
+      <div><span class="num">72,43%</span><p>de uso do caminhão em 2025, o recurso mais carregado da rede</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. RESULTADOS -->
+<section class="tela" id="resultados" data-titulo="Resultados">
+  <div class="caixa">
+    <p class="olho">Resultado 1 · sem nenhuma mudança</p>
+    <h2>O gargalo muda de dono no caminho até 2030</h2>
+    <p class="lead">Escolha um ano. Acima da linha de 100%, o recurso não dá conta.</p>
+    <div class="anos" id="anos" role="group" aria-label="Ano"></div>
+    <div class="barras" id="barras-sem"></div>
+    <p class="recado" id="recado-sem" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="tela" id="isoladas" data-titulo="Medidas isoladas">
+  <div class="caixa">
+    <p class="olho">Resultado 2 · medidas isoladas</p>
+    <h2>Nenhuma medida sozinha atravessa 2028</h2>
+    <p class="lead">Equipamento alivia o caminhão, mas não as equipes. Mais gente alivia as equipes, mas não o caminhão.</p>
+    <div class="alternar" role="group" aria-label="Ano" id="alternar-isoladas">
+      <button type="button" class="ativo" data-ano="2027" aria-pressed="true">2027</button>
+      <button type="button" data-ano="2030" aria-pressed="false">2030</button>
+    </div>
+    <div class="isoladas" id="isoladas-grade"></div>
+  </div>
+</section>
+
+<section class="tela" id="plano" data-titulo="O plano">
+  <div class="caixa">
+    <p class="olho">Resultado 3 · o plano</p>
+    <h2>Uma decisão de cada vez, no ano certo</h2>
+    <div class="destaques">
+      <div><span class="num">0</span><p>investimento para 2026 e 2027, basta realocar duas prensas que já existem no hub</p></div>
+      <div><span class="num">1</span><p>única prensa comprada em todo o plano, para Brooklin</p></div>
+      <div><span class="num">85%</span><p>teto de uso adotado no planejamento, uma margem para os imprevistos</p></div>
+    </div>
+    <ol class="linha-tempo" id="linha-tempo"></ol>
+  </div>
+</section>
+
+<section class="tela" id="comparacao" data-titulo="A média esconde">
+  <div class="caixa">
+    <p class="olho">Resultado 4 · as duas lentes juntas</p>
+    <h2>A média esconde, a simulação revela</h2>
+    <div class="duas-colunas duas-colunas-largo">
+      <div class="texto">
+        <p class="grande">Em 2026, a conta agregada mostra o caminhão a 97,79% e indica que a operação atende. A simulação do mesmo ano, com a estrutura atual, recusa <strong>9,53%</strong> do material por falta de espaço.</p>
+        <p>A partir de 2028, a configuração calculada pela média recusa de 28,75% a 60,38% do material, porque o estoque do hub chega a <strong>363,07 m³</strong>, 73,65% do espaço. Com os ajustes que só a simulação apontou, a recusa cai para <strong>0,30%</strong> em 2028.</p>
+        <div class="tres-decisoes">
+          <span class="olho">Decisões que só a simulação revelou</span>
+          <ul>
+            <li>Antecipar o segundo caminhão em dois anos</li>
+            <li>Tornar padrão a carga dobrada na expedição</li>
+            <li>Construir uma nova doca para 2030</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grafico-caixa">
+        <div class="alternar" role="group" aria-label="Indicador" id="alternar-comp">
+          <button type="button" class="ativo" data-serie="recusa" aria-pressed="true">Material recusado</button>
+          <button type="button" data-serie="estoque" aria-pressed="false">Estoque médio do hub</button>
+        </div>
+        <svg class="grafico" id="grafico-comp" viewBox="0 0 560 340" role="img" aria-label="Comparação entre a configuração calculada pela média e a ajustada pela simulação"></svg>
+        <p class="nota-grafico"><span class="ponto-a"></span>configuração da conta agregada <span class="ponto-b"></span>ajustada pela simulação</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. E SE -->
+<section class="tela" id="e-se" data-titulo="E se?">
+  <div class="caixa">
+    <p class="olho">Simulador</p>
+    <h2>E se fosse você decidindo?</h2>
+    <p class="lead">Escolha o ano, o ritmo de crescimento e o que investir. A conta roda aqui mesmo, com o mesmo modelo de capacidade do trabalho.</p>
+    <div class="ese">
+      <form class="ese-controles" id="ese-form" onsubmit="return false">
+        <fieldset>
+          <legend>Ano</legend>
+          <div class="anos" id="ese-anos" role="group" aria-label="Ano do simulador"></div>
+        </fieldset>
+        <fieldset>
+          <legend>Crescimento por ano</legend>
+          <label for="ese-massa">Volume de material <output id="out-massa">35%</output></label>
+          <input type="range" id="ese-massa" min="0" max="60" step="5" value="35">
+          <label for="ese-chegadas">Número de chegadas <output id="out-chegadas">105%</output></label>
+          <input type="range" id="ese-chegadas" min="0" max="150" step="5" value="105">
+        </fieldset>
+        <fieldset>
+          <legend>Investimentos</legend>
+          <label for="ese-prensas">Prensas nos centros</label>
+          <select id="ese-prensas">
+            <option value="0">Nenhuma, todas no hub</option>
+            <option value="1">Duas realocadas do hub</option>
+            <option value="2">Em todos os centros</option>
+          </select>
+          <label for="ese-bau">Baú do caminhão</label>
+          <select id="ese-bau">
+            <option value="10">10 m³, atual</option>
+            <option value="15">15 m³</option>
+          </select>
+          <label for="ese-caminhoes">Caminhões <output id="out-caminhoes">1</output></label>
+          <input type="range" id="ese-caminhoes" min="1" max="4" step="1" value="1">
+          <label for="ese-operadores">Operadores a mais nos centros <output id="out-operadores">0</output></label>
+          <input type="range" id="ese-operadores" min="0" max="30" step="1" value="0">
+        </fieldset>
+        <div class="ese-botoes">
+          <button type="button" class="botao" id="ese-atual">Estrutura atual</button>
+          <button type="button" class="botao botao-cheio" id="ese-plano">Aplicar o plano do TCC</button>
+        </div>
+      </form>
+      <div class="ese-resultado">
+        <div class="veredito" id="ese-veredito" aria-live="polite"></div>
+        <div class="barras" id="ese-barras"></div>
+        <div class="ese-mini" id="ese-mini"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. VALOR -->
+<section class="tela" id="valor" data-titulo="Valor">
+  <div class="caixa">
+    <p class="olho">O que isso vale para a empresa</p>
+    <h2>Crescer com evidência, e não por reação</h2>
+    <div class="valor-grade">
+      <article><h3>Um cronograma de decisões</h3><p>A Green Mining sabe qual recurso se esgota primeiro e em que ano, e pode programar compras, contratações e obras com antecedência, em vez de reagir quando a operação já travou.</p></article>
+      <article><h3>Investimento enxuto</h3><p>Os dois primeiros anos se resolvem realocando prensas que já existem. O plano inteiro compra uma única prensa, porque comprar mais não acrescentaria capacidade.</p></article>
+      <article><h3>Uma ferramenta própria</h3><p>A calculadora de capacidade fica com a empresa e permite refazer a análise todo ano, com os dados de chegada mais recentes.</p></article>
+      <article><h3>Capacidade escondida</h3><p>Em 2025 as equipes dos centros usavam de 3,00% a 15,75% do tempo disponível. Esse dado era inédito para a empresa e abre espaço para crescer com a equipe que já existe.</p></article>
+    </div>
+    <blockquote class="citacao">
+      <p>“Nunca fiz esse quantitativo, então isso traz uma novidade super relevante para a empresa.”</p>
+      <footer>Green Mining, na apresentação dos resultados à empresa</footer>
+    </blockquote>
+    <div class="impacto">
+      <div><span class="num">4,48×</span><p>mais material previsto para 2030 do que o recebido em 2025</p></div>
+      <div><span class="num">0,30%</span><p>de recusa em 2028 com o plano completo, contra 28,75% sem os ajustes da simulação</p></div>
+      <div><span class="num">2 anos</span><p>de antecedência na decisão do segundo caminhão</p></div>
+    </div>
+    <p class="olho espaco-topo">Próximos passos</p>
+    <ul class="proximos">
+      <li>Associar cada cenário ao custo de implantação</li>
+      <li>Estudar a expansão física do hub para a nova doca</li>
+      <li>Diluir os picos de chegada para evitar sobrecargas pontuais</li>
+      <li>Buscar ganhos de produtividade que reduzam contratações</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11. EQUIPE -->
+<section class="tela" id="equipe" data-titulo="Equipe">
+  <div class="caixa">
+    <p class="olho">Quem fez</p>
+    <h2>Engenharia de Produção · Instituto Mauá de Tecnologia</h2>
+    <div class="galeria">
+      <img src="assets/img/equipe-pinheiros.jpg" alt="Equipe em visita técnica ao centro de coleta de Pinheiros" loading="lazy">
+      <img src="assets/img/equipe-hub.jpg" alt="Equipe em visita técnica ao hub central" loading="lazy">
+      <img src="assets/img/fardos-hub.jpg" alt="Fardos prensados no hub central" loading="lazy">
+      <img src="assets/img/prensa-hub.jpg" alt="Prensa e área de compactação no hub central" loading="lazy">
+      <img src="assets/img/cc-brooklin.jpg" alt="Armazenamento no centro de coleta do Brooklin" loading="lazy">
+      <img src="assets/img/cc-jabaquara.jpg" alt="Centro de coleta do Jabaquara" loading="lazy">
+    </div>
+    <div class="equipe-grade">
+      <div class="nomes">
+        <p class="olho">Autores</p>
+        <ul>
+          <li>Fernando Andrade Rodrigues</li>
+          <li>Gabriel Camargo Pinceli</li>
+          <li>Isabella Ascenção</li>
+          <li>Kaio Rocha Barbosa</li>
+        </ul>
+        <p class="olho">Orientadora</p>
+        <ul><li>Profª Dra. Joyce Zampirolli Scrivano</li></ul>
+        <div class="logos logos-rodape">
+          <img src="assets/img/logo-maua.png" alt="Instituto Mauá de Tecnologia" class="logo-maua">
+          <img src="assets/img/logo-eureka.png" alt="Eureka 2026" class="logo-eureka">
+          <img src="assets/img/logo-green-mining.png" alt="Green Mining" class="logo-gm">
+        </div>
+      </div>
+      <div class="qr">
+        <img src="assets/img/qr-site.svg" alt="QR code para abrir este site no celular" width="220" height="220">
+        <p>Leve o projeto no celular</p>
+        <a href="https://github.com/fernandoanr/tcc-green-mining-capacidade" target="_blank" rel="noopener">Códigos do trabalho no GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Visualizador do BPMN -->
+<dialog class="bpmn" id="bpmn">
+  <div class="bpmn-topo">
+    <strong>Fluxograma completo da operação (BPMN)</strong>
+    <div class="bpmn-botoes">
+      <button type="button" data-zoom="1.25" aria-label="Aproximar">+</button>
+      <button type="button" data-zoom="0.8" aria-label="Afastar">−</button>
+      <button type="button" data-zoom="0" aria-label="Ajustar à tela">Ajustar</button>
+      <button type="button" id="fechar-bpmn" aria-label="Fechar">Fechar</button>
+    </div>
+  </div>
+  <div class="bpmn-area" id="bpmn-area"><img id="bpmn-img" src="assets/img/bpmn-green-mining.svg" alt="Fluxograma BPMN com consumidor, Green Mining e transportadora terceirizada" draggable="false"></div>
+  <p class="bpmn-dica">Arraste para mover, use a roda do mouse ou os botões para aproximar.</p>
+</dialog>
+
+<div class="dica-setas" aria-hidden="true">← → ou ↑ ↓ para trocar de seção</div>
+<div class="aviso-estande" id="aviso-estande" hidden>Apresentação automática · toque em qualquer lugar para explorar</div>
+
+<script src="assets/js/rccp/arrival-profile-2025.js"></script>
+<script src="assets/js/rccp/rccp-model.js"></script>
+<script src="assets/js/rccp/rccp-baseline.js"></script>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/simulador.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
