@@ -549,17 +549,20 @@
       [1710, 465, "Prensas", "Transformam o material solto em fardos compactos."],
       [1900, 455, "Expedição", "Os fardos são carregados e seguem para o reciclador."]
     ];
-    var caixa = $("#modelo-img"), faixa = $("#modelo-faixa"), lista = $("#modelo-legenda");
+    var caixa = $("#modelo-img"), faixa = $("#modelo-faixa");
     ROTULOS.forEach(function (r) {
       var s = document.createElement("span"); s.className = "modelo-rotulo"; s.textContent = r[1];
       s.style.left = (r[0] / W * 100) + "%"; faixa.appendChild(s);
     });
     var hub = document.createElement("span"); hub.className = "modelo-rotulo hub"; hub.textContent = "Hub central";
     hub.style.left = (1560 / W * 100) + "%"; hub.style.top = (560 / H * 100) + "%"; caixa.appendChild(hub);
-    var botoes = [], itens = [];
+    var botoes = [], atual = 0;
     function marca(i) {
-      botoes.forEach(function (b, k) { b.classList.toggle("ativa", k === i); b.setAttribute("aria-pressed", String(k === i)); });
-      itens.forEach(function (li, k) { li.classList.toggle("ativa", k === i); });
+      atual = (i + MARCAS.length) % MARCAS.length;
+      botoes.forEach(function (b, k) { b.classList.toggle("ativa", k === atual); b.setAttribute("aria-pressed", String(k === atual)); });
+      $("#modelo-n").textContent = atual + 1;
+      $("#modelo-titulo").textContent = MARCAS[atual][2];
+      $("#modelo-texto").textContent = MARCAS[atual][3];
     }
     MARCAS.forEach(function (m, i) {
       var b = document.createElement("button"); b.type = "button"; b.className = "marca"; b.textContent = i + 1;
@@ -567,11 +570,10 @@
       b.setAttribute("aria-label", (i + 1) + ". " + m[2]); b.setAttribute("aria-pressed", "false");
       b.addEventListener("click", function () { marca(i); });
       caixa.appendChild(b); botoes.push(b);
-      var li = document.createElement("li");
-      li.innerHTML = '<span class="n">' + (i + 1) + "</span><b>" + m[2] + "</b><span>" + m[3] + "</span>";
-      li.addEventListener("click", function () { marca(i); });
-      lista.appendChild(li); itens.push(li);
     });
+    $("#modelo-ant").addEventListener("click", function () { marca(atual - 1); });
+    $("#modelo-prox").addEventListener("click", function () { marca(atual + 1); });
+    marca(0);
     window.__marcaModelo = marca;
   })();
 
@@ -588,6 +590,60 @@
     window.__videoSimul8 = function (x) { velocidade(x); v.play().catch(function () {}); };
   })();
 
+  /* ---------- Slider imagem/vídeo e tela cheia ---------- */
+  (function () {
+    var abas = [].slice.call(document.querySelectorAll("#midia-abas button"));
+    var slides = [].slice.call(document.querySelectorAll(".midia-slide"));
+    var trilho = $("#midia-trilho"), v = $("#simul8"), legenda = $("#midia-legenda");
+    var LEGENDAS = [
+      legenda.innerHTML,
+      "O modelo rodando uma semana de operação. O relógio no canto mostra o dia e o turno simulados."
+    ];
+    var slide = 0;
+    function vai(i) {
+      var antes = slide; slide = i;
+      if (i !== antes) slides[i].classList.remove("entra-dir", "entra-esq"), void slides[i].offsetWidth, slides[i].classList.add(i > antes ? "entra-dir" : "entra-esq");
+      abas.forEach(function (b, k) { b.classList.toggle("ativo", k === i); b.setAttribute("aria-selected", String(k === i)); });
+      slides.forEach(function (sl, k) { sl.setAttribute("aria-hidden", String(k !== i)); });
+      legenda.innerHTML = LEGENDAS[i];
+      if (i !== 1 && !v.paused) v.pause();
+    }
+    abas.forEach(function (b, k) { b.addEventListener("click", function () { vai(k); }); });
+    var toque = null;
+    trilho.addEventListener("touchstart", function (e) { toque = e.touches[0].clientX; }, { passive: true });
+    trilho.addEventListener("touchend", function (e) {
+      if (toque === null) return;
+      var dx = e.changedTouches[0].clientX - toque; toque = null;
+      if (e.target.closest(".modelo-img")) return;
+      if (Math.abs(dx) > 60) vai(dx < 0 ? 1 : 0);
+    });
+    vai(0);
+
+    var sair = $("#sair-tela"), aberto = null, entrouNativo = false;
+    function abre() {
+      aberto = slide === 0 ? $("#modelo") : $("#video-simul8");
+      aberto.classList.add("tela-cheia"); document.body.classList.add("com-tela-cheia"); sair.hidden = false;
+      var d = document.documentElement;
+      if (!document.fullscreenElement && d.requestFullscreen) { d.requestFullscreen().then(function () { entrouNativo = true; }).catch(function () {}); }
+    }
+    function fecha() {
+      if (!aberto) return;
+      aberto.classList.remove("tela-cheia"); document.body.classList.remove("com-tela-cheia"); sair.hidden = true; aberto = null;
+      if (entrouNativo && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
+      entrouNativo = false;
+    }
+    $("#tela-cheia").addEventListener("click", abre);
+    sair.addEventListener("click", fecha);
+    document.addEventListener("keydown", function (e) {
+      if (!aberto) return;
+      if (e.key === "Escape") fecha();
+      else if (aberto.id === "modelo" && (e.key === "ArrowRight" || e.key === "ArrowDown")) { e.preventDefault(); $("#modelo-prox").click(); }
+      else if (aberto.id === "modelo" && (e.key === "ArrowLeft" || e.key === "ArrowUp")) { e.preventDefault(); $("#modelo-ant").click(); }
+    });
+    document.addEventListener("fullscreenchange", function () { if (entrouNativo && !document.fullscreenElement) { entrouNativo = false; fecha(); } });
+    window.__midia = { vai: vai, fecha: fecha };
+  })();
+
   /* ---------- Modo estande ---------- */
   var estande = /[?&]modo=estande/.test(location.search);
   var botaoEstande = $("#botao-estande");
@@ -600,8 +656,10 @@
     { id: "desafio", s: 13, f: function (t) { t(function () { $('[data-serie="chegadas"]', $("#desafio")).click(); }, 5000); t(function () { $('[data-serie="porChegada"]', $("#desafio")).click(); }, 9000); } },
     { id: "metodo", s: 12 },
     { id: "lentes", s: 26, f: function (t) {
+      window.__midia.vai(0);
       for (var i = 0; i < 12; i++) (function (k) { t(function () { window.__marcaModelo(k); }, 1500 * k); })(i);
-      t(function () { $("#video-simul8").scrollIntoView({ behavior: reduz ? "auto" : "smooth", block: "center" }); window.__videoSimul8(8); }, 18500);
+      t(function () { window.__midia.vai(1); window.__videoSimul8(8); }, 18500);
+      t(function () { window.__midia.vai(0); }, 25800);
     } },
     { id: "resultados", s: 16, f: function (t) { [2025, 2026, 2027, 2028, 2029, 2030].forEach(function (a, i) { t(function () { window.__resultadoSem(a); }, 2500 * i); }); } },
     { id: "isoladas", s: 11, f: function (t) { t(function () { $('[data-ano="2030"]', $("#alternar-isoladas")).click(); }, 5500); } },
@@ -657,7 +715,7 @@
   }
   window.addEventListener("keydown", function (e) {
     if (!estande || e.altKey || e.ctrlKey || e.metaKey) return;
-    if (document.querySelector("dialog[open]")) return;
+    if (document.querySelector("dialog[open]") || document.body.classList.contains("com-tela-cheia")) return;
     var el = document.activeElement;
     if (el && (/^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName) || el.isContentEditable)) return;
     var proximo = ["ArrowDown", "ArrowRight", "PageDown"].indexOf(e.key) >= 0;
