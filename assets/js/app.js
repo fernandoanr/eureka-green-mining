@@ -103,7 +103,7 @@
       el("circle", { class: "halo", cx: u.x, cy: u.y, r: 16 + 26 * Math.sqrt(u.massa / maxMassa) }, grupo);
       el("circle", { class: "miolo", cx: u.x, cy: u.y, r: u.tipo === "hub" ? 13 : 10 }, grupo);
       var dir = u.x > 480; var t = el("text", { x: u.x + (dir ? -18 : 18), y: u.y - 14, "text-anchor": dir ? "end" : "start" }, grupo);
-      t.textContent = u.tipo === "hub" ? "Hub · " + u.nome : u.nome;
+      t.textContent = u.tipo === "hub" ? "Hub - " + u.nome : u.nome;
       grupo.addEventListener("click", function () { mostra(u.id); });
       grupo.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); mostra(u.id); } });
       nos[u.id] = grupo;
@@ -114,7 +114,7 @@
       Object.keys(nos).forEach(function (k) { nos[k].classList.toggle("ativo", k === id); });
       var hubTxt = u.tipo === "hub";
       ficha.innerHTML =
-        '<span class="tipo">' + (hubTxt ? "Hub central · também recebe entrada direta" : "Centro de coleta") + "</span>" +
+        '<span class="tipo">' + (hubTxt ? "Hub central - também recebe entrada direta" : "Centro de coleta") + "</span>" +
         "<h3>" + u.nome + "</h3>" +
         "<dl>" +
         "<dt>" + (hubTxt ? "Chegadas diretas em 2025" : "Chegadas em 2025") + "</dt><dd>" + f0.format(u.chegadas) + "</dd>" +
@@ -219,7 +219,7 @@
       etapaAtual = i;
       nos.forEach(function (n, k) { n.classList.toggle("ativa", k === i); });
       var e = ETAPAS[i];
-      painel.innerHTML = '<span class="olho">Etapa ' + (i + 1) + " de 8 · " + ZONAS[e.z] + "</span><h3>" + e.h + "</h3><p>" + e.p + '</p><div class="fatos">' +
+      painel.innerHTML = '<span class="olho">Etapa ' + (i + 1) + " de 8 - " + ZONAS[e.z] + "</span><h3>" + e.h + "</h3><p>" + e.p + '</p><div class="fatos">' +
         e.f.map(function (x) { return '<span class="fato">' + x + "</span>"; }).join("") + "</div>";
     }
     selecionaEtapa(0);

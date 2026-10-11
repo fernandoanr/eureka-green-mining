@@ -1,4 +1,4 @@
-# Green Mining · Capacidade até 2030
+# Green Mining - Capacidade até 2030
 
 Site interativo do TCC "Planejamento agregado em sistemas de logística reversa: aplicação à Green Mining", apresentado na Eureka 2026 (Stand 9, PMN01).
 
