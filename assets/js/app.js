@@ -531,12 +531,61 @@
   calculaEse();
   window.__ese = { ano: function (a) { ese.ano = a; }, preset: aplicaPreset };
 
+  /* ---------- Modelo do SIMUL8 anotado ---------- */
+  (function () {
+    var W = 2466, H = 760;
+    var ROTULOS = [[410, "Embu das Artes"], [820, "Pinheiros"], [1240, "Jabaquara"], [1720, "Paraisópolis"], [2180, "Brooklin"]];
+    var MARCAS = [
+      [790, 30, "Chegadas de material", "Cada seta é uma família de material, papelão, plástico ou longa vida, chegando ao centro de coleta."],
+      [665, 108, "Recebimento e pesagem", "A equipe confere e pesa cada material que chega."],
+      [980, 140, "Equipe do centro", "Os operadores que atendem as chegadas, com seus turnos."],
+      [810, 160, "Estoque do centro", "O material fica aqui até juntar uma carga e o caminhão ser chamado."],
+      [773, 385, "Rota até o hub", "O caminho da carga de cada centro até o hub."],
+      [1375, 385, "Caminhão", "O veículo que liga os cinco centros ao hub, com baú de 10 m³."],
+      [1240, 22, "Material recusado", "O que não cabe no estoque sai por aqui. É assim que a simulação mede a recusa."],
+      [1247, 455, "Descarga no hub", "O caminhão chega e a carga entra no hub central."],
+      [1385, 575, "Chegadas diretas no hub", "O hub também recebe material na própria porta."],
+      [1197, 610, "Equipe do hub", "Os operadores do recebimento, da separação e das prensas."],
+      [1710, 465, "Prensas", "Transformam o material solto em fardos compactos."],
+      [1900, 455, "Expedição", "Os fardos são carregados e seguem para o reciclador."]
+    ];
+    var caixa = $("#modelo-img"), faixa = $("#modelo-faixa"), lista = $("#modelo-legenda");
+    ROTULOS.forEach(function (r) {
+      var s = document.createElement("span"); s.className = "modelo-rotulo"; s.textContent = r[1];
+      s.style.left = (r[0] / W * 100) + "%"; faixa.appendChild(s);
+    });
+    var hub = document.createElement("span"); hub.className = "modelo-rotulo hub"; hub.textContent = "Hub central";
+    hub.style.left = (1560 / W * 100) + "%"; hub.style.top = (560 / H * 100) + "%"; caixa.appendChild(hub);
+    var botoes = [], itens = [];
+    function marca(i) {
+      botoes.forEach(function (b, k) { b.classList.toggle("ativa", k === i); b.setAttribute("aria-pressed", String(k === i)); });
+      itens.forEach(function (li, k) { li.classList.toggle("ativa", k === i); });
+    }
+    MARCAS.forEach(function (m, i) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "marca"; b.textContent = i + 1;
+      b.style.left = (m[0] / W * 100) + "%"; b.style.top = (m[1] / H * 100) + "%";
+      b.setAttribute("aria-label", (i + 1) + ". " + m[2]); b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () { marca(i); });
+      caixa.appendChild(b); botoes.push(b);
+      var li = document.createElement("li");
+      li.innerHTML = '<span class="n">' + (i + 1) + "</span><b>" + m[2] + "</b><span>" + m[3] + "</span>";
+      li.addEventListener("click", function () { marca(i); });
+      lista.appendChild(li); itens.push(li);
+    });
+    window.__marcaModelo = marca;
+  })();
+
   /* ---------- Vídeo do SIMUL8 ---------- */
   (function () {
-    var v = $("#simul8"), espera = $("#video-espera");
-    v.hidden = true;
-    v.addEventListener("loadeddata", function () { v.hidden = false; espera.hidden = true; });
-    $("source", v).addEventListener("error", function () { v.hidden = true; espera.hidden = false; });
+    var v = $("#simul8");
+    var bts = [].slice.call(document.querySelectorAll("#velocidade button"));
+    function velocidade(x) {
+      v.playbackRate = x;
+      bts.forEach(function (b) { var on = Number(b.dataset.v) === x; b.classList.toggle("ativo", on); b.setAttribute("aria-pressed", String(on)); });
+    }
+    bts.forEach(function (b) { b.addEventListener("click", function () { velocidade(Number(b.dataset.v)); if (v.paused) v.play().catch(function () {}); }); });
+    v.addEventListener("ratechange", function () { var x = v.playbackRate; bts.forEach(function (b) { var on = Number(b.dataset.v) === x; b.classList.toggle("ativo", on); b.setAttribute("aria-pressed", String(on)); }); });
+    window.__videoSimul8 = function (x) { velocidade(x); v.play().catch(function () {}); };
   })();
 
   /* ---------- Modo estande ---------- */
@@ -550,7 +599,10 @@
     { id: "operacao", s: 20, f: function (t) { for (var i = 0; i < 8; i++) (function (k) { t(function () { window.__selecionaEtapa(k); }, 2400 * k); })(i); } },
     { id: "desafio", s: 13, f: function (t) { t(function () { $('[data-serie="chegadas"]', $("#desafio")).click(); }, 5000); t(function () { $('[data-serie="porChegada"]', $("#desafio")).click(); }, 9000); } },
     { id: "metodo", s: 12 },
-    { id: "lentes", s: 14 },
+    { id: "lentes", s: 26, f: function (t) {
+      for (var i = 0; i < 12; i++) (function (k) { t(function () { window.__marcaModelo(k); }, 1500 * k); })(i);
+      t(function () { $("#video-simul8").scrollIntoView({ behavior: reduz ? "auto" : "smooth", block: "center" }); window.__videoSimul8(8); }, 18500);
+    } },
     { id: "resultados", s: 16, f: function (t) { [2025, 2026, 2027, 2028, 2029, 2030].forEach(function (a, i) { t(function () { window.__resultadoSem(a); }, 2500 * i); }); } },
     { id: "isoladas", s: 11, f: function (t) { t(function () { $('[data-ano="2030"]', $("#alternar-isoladas")).click(); }, 5500); } },
     { id: "plano", s: 14 },

@@ -211,7 +211,9 @@ strong { color: #fff; font-weight: 700; }
 .lente p { color: var(--suave); }
 .lente .analogia { color: var(--folha); font-style: italic; }
 .video-simul8 { margin: 0; display: grid; gap: 8px; position: relative; }
-.video-simul8 video { width: 100%; border-radius: 14px; border: 1px solid var(--borda); background: #000; aspect-ratio: 16/9; }
+.video-moldura { border-radius: 14px; overflow: hidden; border: 1px solid var(--borda); background: #fff; }
+.video-simul8 video { width: 100%; display: block; aspect-ratio: 2466/760; background: #fff; }
+.video-controles { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .video-espera { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--borda); background: #fff; }
 .video-espera img { width: 100%; }
 .video-espera span { position: absolute; left: 16px; bottom: 16px; background: rgba(11,17,16,.88); border: 1px solid var(--gm); color: var(--texto); border-radius: 999px; padding: 6px 14px; font: 600 .85rem var(--f-dado); }
@@ -375,3 +377,28 @@ body.estande .tela { min-height: 100vh; display: grid; align-content: center; }
 /* Dica de navegação por setas no modo estande */
 .dica-setas { position: fixed; right: 18px; bottom: 18px; z-index: 60; font-family: var(--f-dado); font-size: .78rem; color: var(--suave); background: rgba(11,17,16,.86); border: 1px solid var(--borda); border-radius: 999px; padding: 6px 14px; pointer-events: none; }
 body:not(.estande) .dica-setas { display: none; }
+
+/* Modelo do SIMUL8 anotado */
+.modelo-bloco { display: grid; gap: 14px; }
+.modelo-cabeca { display: grid; gap: 4px; }
+.modelo-cabeca p { color: var(--suave); margin: 0; }
+.modelo { margin: 0; display: grid; gap: 14px; }
+.modelo-img { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--borda); background: #fff; }
+.modelo-img img { width: 100%; height: auto; }
+.modelo-faixa { position: relative; height: clamp(26px, 2.6vw, 36px); background: var(--chao-2); border-bottom: 1px solid var(--borda); }
+.modelo-tela { position: relative; }
+.modelo-rotulo { position: absolute; top: 50%; transform: translate(-50%, -50%); font: 700 clamp(.6rem, 1vw, .85rem) var(--f-dado); color: #fff; background: var(--gm); border-radius: 6px; padding: 2px 8px; white-space: nowrap; pointer-events: none; }
+.modelo-rotulo.hub { background: var(--chao); border: 1px solid var(--neon); color: var(--neon); }
+.marca { position: absolute; transform: translate(-50%, -50%); width: clamp(20px, 2.2vw, 32px); height: clamp(20px, 2.2vw, 32px); border-radius: 50%; border: 2px solid var(--chao); background: var(--neon); color: var(--chao); font: 800 clamp(.62rem, 1vw, .85rem) var(--f-dado); display: grid; place-items: center; cursor: pointer; padding: 0; box-shadow: 0 0 0 4px rgba(20,224,117,.28); transition: transform .2s, box-shadow .2s; }
+.marca:hover, .marca.ativa { transform: translate(-50%, -50%) scale(1.25); box-shadow: 0 0 0 7px rgba(20,224,117,.38); }
+.modelo-legenda { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 14px; }
+.modelo-legenda li { display: grid; grid-template-columns: 28px 1fr; align-content: start; gap: 2px 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; }
+.modelo-legenda li.ativa { border-color: var(--neon); background: rgba(17,137,97,.16); }
+.modelo-legenda .n { grid-row: 1 / 3; align-self: start; width: 26px; height: 26px; border-radius: 50%; background: var(--neon); color: var(--chao); font: 800 .78rem var(--f-dado); display: grid; place-items: center; }
+.modelo-legenda b { font-family: var(--f-display); font-size: .98rem; }
+.modelo-legenda span:last-child { color: var(--suave); font-size: .9rem; line-height: 1.4; }
+@media (max-width: 1100px) { .modelo-legenda { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) { .modelo-img { overflow-x: auto; } .modelo-faixa, .modelo-tela { min-width: 900px; } }
+@media (max-width: 560px) { .modelo-legenda { grid-template-columns: 1fr; } }
+.so-celular { display: none; }
+@media (max-width: 860px) { .so-celular { display: inline; } }
