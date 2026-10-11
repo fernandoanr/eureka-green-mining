@@ -15,6 +15,7 @@ e abrir `http://localhost:8000`. Para o monitor do estande, use `http://localhos
 ## Onde mexer
 
 - Textos: `index.html`
+- Depois de mudar CSS ou JS, troque o número `?v=` nos links do fim e do começo do `index.html`, para o navegador não usar a versão antiga guardada em cache.
 - Visual: `assets/css/style.css`
 - Números do TCC usados nos gráficos: `assets/js/dados.js`
 - Simulador "E se": `assets/js/simulador.js`, sobre o motor RCCP v16 em `assets/js/rccp/`
