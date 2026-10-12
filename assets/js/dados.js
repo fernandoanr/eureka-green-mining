@@ -29,6 +29,13 @@ window.TCC = {
     2030: { transporte: 324.79, centros: 433.84, hub: 82.48, cobertura: 0.8 }
   },
 
+  /* Simulação da estrutura atual, sem mudanças */
+  simSemMudanca: {
+    2025: { recusa: 0.0, veiculo: 79.58, estoqueCentro: 11.64, estoqueHub: 29.45 },
+    2026: { recusa: 9.53, veiculo: 107.46 },
+    2027: { recusa: 34.03 }
+  },
+
   medidasIsoladas: [
     { medida: "Estrutura atual", t2027: 132.01, e2027: 55.95, t2030: 324.79, e2030: 433.84 },
     { medida: "Duas prensas realocadas", t2027: 76.29, e2027: 63.59, t2030: 187.69, e2030: 452.63 },

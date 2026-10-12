@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=20261012a">
-<link rel="stylesheet" href="../assets/css/rapido.css?v=20261012a">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261012b">
+<link rel="stylesheet" href="../assets/css/rapido.css?v=20261012b">
 </head>
 <body class="rapido">
 
@@ -88,7 +88,11 @@
 <!-- 5. O QUE DESCOBRIMOS -->
 <section class="r-tela" data-mais="resultados" aria-label="O que descobrimos">
   <p class="olho">O que descobrimos, sem nenhuma mudança</p>
-  <h2>O gargalo muda de dono</h2>
+  <h2>A estrutura atual não aguenta</h2>
+  <div class="r-lente-troca" id="r-lente-troca" role="group" aria-label="Lente">
+    <button type="button" data-lente="rccp" aria-pressed="true"><span class="lente-tag">RCCP</span> Conta da capacidade</button>
+    <button type="button" data-lente="sim" aria-pressed="false"><span class="lente-tag">SIMUL8</span> Simulação</button>
+  </div>
   <div class="r-anos" id="r-anos" role="group" aria-label="Ano"></div>
   <div class="r-barras" id="r-barras"></div>
   <p class="r-sub r-centro" id="r-recado" aria-live="polite"></p>
@@ -106,13 +110,26 @@
   </div>
 </section>
 
-<!-- 7. O VALOR -->
+<!-- 7. O RESULTADO -->
+<section class="r-tela" data-mais="comparacao" aria-label="O resultado do plano">
+  <p class="olho">O resultado na simulação</p>
+  <h2>Quanto material fica para trás</h2>
+  <div class="r-legenda-recusa">
+    <span><i class="sem"></i>Sem os ajustes do trabalho</span>
+    <span><i class="com"></i>Com o plano completo</span>
+  </div>
+  <div class="r-recusas" id="r-recusas"></div>
+  <p class="r-escala">Material recusado sobre a demanda. Sem os ajustes: estrutura atual em 2026 e 2027, e só a conta da capacidade de 2028 a 2030.</p>
+  <p class="r-sub r-centro">De 2028 em diante a trava estava no hub, com estoque médio de <b>363,07&nbsp;m³</b>. Com os ajustes da simulação, ele cai para <b>45,90&nbsp;m³</b>.</p>
+</section>
+
+<!-- 8. O VALOR -->
 <section class="r-tela" data-mais="valor" aria-label="O valor para a empresa">
   <p class="olho">O que isso vale para a empresa</p>
   <h2>Crescer com evidência, e não por reação</h2>
   <div class="r-tres">
-    <div><span class="num">0,30%</span><p>de material recusado em 2028 com o plano, contra 28,75% sem os ajustes da simulação</p></div>
-    <div><span class="num">2 anos</span><p>de antecedência na decisão do segundo caminhão</p></div>
+    <div><span class="num">2028</span><p>é o ano do segundo caminhão, dois anos antes do que a conta média indicava, com tempo para planejar a compra</p></div>
+    <div><span class="num">1 doca</span><p>nova no hub prevista para 2030, um investimento que só a simulação revelou</p></div>
     <div><span class="num">1</span><p>ferramenta própria para a empresa refazer a análise todo ano</p></div>
   </div>
   <blockquote class="citacao r-citacao">
@@ -132,12 +149,12 @@
 
 <nav class="r-controles" aria-label="Navegação da apresentação">
   <button type="button" class="seta" id="r-ant" aria-label="Tela anterior">‹</button>
-  <span class="r-contador" id="r-contador">1 / 7</span>
+  <span class="r-contador" id="r-contador">1 / 8</span>
   <a class="r-mais" id="r-mais" href="../#problema">Aprofundar este tema →</a>
   <button type="button" class="seta" id="r-prox" aria-label="Próxima tela">›</button>
 </nav>
 
-<script src="../assets/js/dados.js?v=20261012a"></script>
-<script src="../assets/js/rapido.js?v=20261012a"></script>
+<script src="../assets/js/dados.js?v=20261012b"></script>
+<script src="../assets/js/rapido.js?v=20261012b"></script>
 </body>
 </html>

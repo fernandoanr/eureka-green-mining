@@ -177,50 +177,107 @@
     v.addEventListener("loadedmetadata", function () { v.playbackRate = 8; });
   })();
 
-  /* ---------- 5. Barras sem mudança ---------- */
+  /* ---------- 5. Sem mudança, nas duas lentes ---------- */
   (function () {
-    var ANOS = [2025, 2026, 2027, 2028, 2029, 2030], MAX = 450;
-    var RECADOS = {
-      2025: "Em 2025 tudo cabe. O caminhão é o recurso mais carregado da rede.",
-      2026: "Em 2026 o caminhão já trabalha perto do limite.",
-      2027: "Em 2027 o caminhão não dá conta. A estrutura atual precisaria de mais transporte.",
-      2028: "Em 2028 as equipes dos centros também passam do limite.",
-      2029: "Em 2029 os dois gargalos já passam do dobro da capacidade.",
-      2030: "Em 2030, sem mudanças, a rede precisaria de mais de três vezes a capacidade atual."
+    var LENTES = {
+      rccp: {
+        anos: [2025, 2026, 2027, 2028, 2029, 2030], max: 450, limite: true,
+        linhas: [["Caminhão", function (a) { return D.semMudanca[a].transporte; }], ["Equipes dos centros", function (a) { return D.semMudanca[a].centros; }]],
+        recados: {
+          2025: "Em 2025 tudo cabe. O caminhão é o recurso mais carregado da rede.",
+          2026: "Em 2026 o caminhão já trabalha perto do limite.",
+          2027: "Em 2027 o caminhão não dá conta. A estrutura atual precisaria de mais transporte.",
+          2028: "Em 2028 as equipes dos centros também passam do limite.",
+          2029: "Em 2029 os dois gargalos já passam do dobro da capacidade.",
+          2030: "Em 2030, sem mudanças, a rede precisaria de mais de três vezes a capacidade atual."
+        }
+      },
+      sim: {
+        anos: [2025, 2026, 2027], max: 100, limite: false,
+        linhas: [["Material recusado", function (a) { return D.simSemMudanca[a].recusa; }]],
+        recados: {
+          2025: "Em 2025 a simulação confirma a folga: nada é recusado e o estoque médio fica em 11,64 m³ por centro.",
+          2026: "Em 2026 a conta média ainda fecha, mas a simulação já recusa 9,53% do material. O caminhão roda a 107,46%.",
+          2027: "Em 2027 os estoques dos centros chegam ao limite físico e 34,03% do material fica para trás."
+        }
+      }
     };
     var barras = $("#r-barras"), anos = $("#r-anos"), recado = $("#r-recado");
-    var linhas = [["Caminhão", "transporte"], ["Equipes dos centros", "centros"]].map(function (r) {
-      var d = document.createElement("div"); d.className = "r-barra";
-      d.innerHTML = "<b>" + r[0] + '</b><div class="r-trilho"><i></i><span class="limite" style="left:' + (100 / MAX * 100) + '%"></span></div><span class="r-valor"></span>';
-      barras.appendChild(d);
-      return { chave: r[1], barra: $("i", d), valor: $(".r-valor", d) };
-    });
-    var escala = document.createElement("p"); escala.className = "r-escala"; escala.textContent = "A linha branca marca 100% da capacidade"; barras.appendChild(escala);
-    var botoes = ANOS.map(function (a, i) {
-      var b = document.createElement("button"); b.type = "button"; b.textContent = a; b.setAttribute("aria-pressed", "false");
-      b.addEventListener("click", function () { para(); mostra(i); });
-      anos.appendChild(b); return b;
-    });
+    var trocas = $$("#r-lente-troca button");
+    var lente = null, linhas = [], botoes = [], ciclo = null, idx = 0;
+    function para() { clearInterval(ciclo); ciclo = null; }
+    function usa(nome) {
+      lente = LENTES[nome];
+      trocas.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.lente === nome)); });
+      barras.innerHTML = ""; anos.innerHTML = "";
+      linhas = lente.linhas.map(function (r) {
+        var d = document.createElement("div"); d.className = "r-barra";
+        d.innerHTML = "<b>" + r[0] + '</b><div class="r-trilho"><i></i>' + (lente.limite ? '<span class="limite" style="left:' + (100 / lente.max * 100) + '%"></span>' : "") + '</div><span class="r-valor"></span>';
+        barras.appendChild(d);
+        return { valorDe: r[1], barra: $("i", d), valor: $(".r-valor", d) };
+      });
+      var escala = document.createElement("p"); escala.className = "r-escala";
+      escala.textContent = lente.limite ? "A linha branca marca 100% da capacidade" : "Parte do material que chega e não encontra espaço";
+      barras.appendChild(escala);
+      botoes = lente.anos.map(function (a, i) {
+        var b = document.createElement("button"); b.type = "button"; b.textContent = a; b.setAttribute("aria-pressed", "false");
+        b.addEventListener("click", function () { para(); mostra(i); });
+        anos.appendChild(b); return b;
+      });
+    }
     function mostra(i) {
-      var a = ANOS[i], d = D.semMudanca[a];
+      var a = lente.anos[i]; idx = i;
       botoes.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
       linhas.forEach(function (l) {
-        var v = d[l.chave], estoura = v > 100;
-        l.barra.style.width = Math.min(100, v / MAX * 100) + "%";
+        var v = l.valorDe(a), estoura = lente.limite ? v > 100 : v > 0;
+        l.barra.style.width = Math.max(v > 0 ? 1 : 0, Math.min(100, v / lente.max * 100)) + "%";
         l.barra.classList.toggle("estoura", estoura);
         l.valor.textContent = f2.format(v) + "%";
         l.valor.classList.toggle("estoura", estoura);
       });
-      recado.textContent = RECADOS[a];
+      recado.textContent = lente.recados[a];
     }
-    var ciclo = null, idx = 0;
-    function para() { clearInterval(ciclo); ciclo = null; }
-    mostra(0);
+    trocas.forEach(function (b) { b.addEventListener("click", function () { para(); usa(b.dataset.lente); mostra(0); }); });
+    usa("rccp"); mostra(0);
+    /* Passa pelos anos do RCCP e depois pelos da simulação */
     aoEntrar[4] = function () {
-      idx = 0; mostra(0); para();
-      ciclo = setInterval(function () { idx++; if (idx >= ANOS.length) { para(); return; } mostra(idx); }, 2200);
+      para(); usa("rccp"); mostra(0);
+      ciclo = setInterval(function () {
+        if (idx + 1 < lente.anos.length) { mostra(idx + 1); return; }
+        if (lente === LENTES.rccp) { usa("sim"); mostra(0); return; }
+        para();
+      }, 1900);
     };
     aoSair[4] = para;
+  })();
+
+  /* ---------- 7. Recusa sem e com os ajustes ---------- */
+  (function () {
+    var caixa = $("#r-recusas"), MAX = 70, timers = [];
+    var SEM = { 2026: D.simSemMudanca[2026].recusa, 2027: D.simSemMudanca[2027].recusa };
+    var linhas = D.comparacao.map(function (c) {
+      var sem = SEM[c.ano] != null ? SEM[c.ano] : c.recusaRccp;
+      var com = c.recusaAjustada != null ? c.recusaAjustada : c.recusaRccp;
+      var d = document.createElement("div"); d.className = "r-recusa";
+      d.innerHTML = '<span class="ano">' + c.ano + '</span>' +
+        '<div class="par"><div class="r-trilho fino"><i class="sem"></i></div><span class="r-valor estoura">' + f2.format(sem) + '%</span>' +
+        '<div class="r-trilho fino"><i class="com"></i></div><span class="r-valor ok">' + f2.format(com) + "%</span></div>";
+      caixa.appendChild(d);
+      return { d: d, sem: sem, com: com, iSem: $("i.sem", d), iCom: $("i.com", d) };
+    });
+    function larg(v) { return Math.max(v > 0 ? 0.8 : 0, v / MAX * 100) + "%"; }
+    function zera() { timers.forEach(clearTimeout); timers = []; linhas.forEach(function (l) { l.iSem.style.width = "0"; l.iCom.style.width = "0"; }); }
+    function enche() { linhas.forEach(function (l) { l.iSem.style.width = larg(l.sem); l.iCom.style.width = larg(l.com); }); }
+    enche();
+    aoEntrar[6] = function () {
+      if (reduz) return enche();
+      zera();
+      linhas.forEach(function (l, i) {
+        timers.push(setTimeout(function () { l.iSem.style.width = larg(l.sem); }, 250 + 300 * i));
+        timers.push(setTimeout(function () { l.iCom.style.width = larg(l.com); }, 1900 + 300 * i));
+      });
+    };
+    aoSair[6] = function () { timers.forEach(clearTimeout); timers = []; enche(); };
   })();
 
   /* ---------- 6. Linha do tempo do plano ---------- */
@@ -302,7 +359,7 @@
   var agenda = null;
   if (/[?&]modo=estande/.test(location.search)) {
     document.body.classList.add("estande");
-    var TEMPO = [14, 14, 22, 16, 16, 14, 18], auto = null;
+    var TEMPO = [14, 14, 22, 16, 20, 14, 16, 16], auto = null;
     agenda = function () { clearTimeout(auto); auto = setTimeout(function () { vai(atual === telas.length - 1 ? 0 : atual + 1); agenda(); }, TEMPO[atual] * 1000); };
     ["pointerdown", "keydown", "touchstart"].forEach(function (ev) { window.addEventListener(ev, function () { clearTimeout(auto); auto = setTimeout(agenda, 45000); }, { passive: true }); });
   }
