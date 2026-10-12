@@ -253,12 +253,13 @@
 
   /* ---------- 7. Recusa sem e com os ajustes ---------- */
   (function () {
-    var caixa = $("#r-recusas"), MAX = 70, timers = [];
+    var MAX = 70, timers = [];
     var SEM = { 2026: D.simSemMudanca[2026].recusa, 2027: D.simSemMudanca[2027].recusa };
     var linhas = D.comparacao.map(function (c) {
       var sem = SEM[c.ano] != null ? SEM[c.ano] : c.recusaRccp;
       var com = c.recusaAjustada != null ? c.recusaAjustada : c.recusaRccp;
       var d = document.createElement("div"); d.className = "r-recusa";
+      var caixa = $(c.ano <= 2027 ? "#r-recusas-1" : "#r-recusas-2");
       d.innerHTML = '<span class="ano">' + c.ano + '</span>' +
         '<div class="par"><div class="r-trilho fino"><i class="sem"></i></div><span class="r-valor estoura">' + f2.format(sem) + '%</span>' +
         '<div class="r-trilho fino"><i class="com"></i></div><span class="r-valor ok">' + f2.format(com) + "%</span></div>";

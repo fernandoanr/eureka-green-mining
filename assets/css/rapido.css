@@ -95,8 +95,13 @@ body.rapido { height: 100dvh; overflow: hidden; display: grid; grid-template-row
 .r-legenda-recusa i { width: 14px; height: 14px; border-radius: 4px; }
 .r-legenda-recusa i.sem, .r-recusa i.sem { background: var(--estouro); }
 .r-legenda-recusa i.com, .r-recusa i.com { background: var(--neon); }
-.r-recusas { display: grid; gap: 14px; max-width: 900px; text-align: left; }
-.r-recusa { display: grid; grid-template-columns: 70px 1fr; gap: 14px; align-items: center; }
+.r-blocos-recusa { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; }
+.r-bloco { background: var(--placa); border: 1px solid var(--borda); border-radius: 14px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; }
+.r-bloco h3 { margin: 0; font-size: clamp(1.05rem, 1.6vw, 1.3rem); }
+.r-bloco-anos { justify-self: start; font: 600 .78rem var(--f-dado); text-transform: uppercase; letter-spacing: .08em; background: var(--gm); border-radius: 999px; padding: 3px 10px; }
+.r-bloco .r-legenda-recusa { justify-content: flex-start; gap: 16px; font-size: .82rem; }
+.r-recusas { display: grid; gap: 12px; text-align: left; }
+.r-recusa { display: grid; grid-template-columns: 58px 1fr; gap: 14px; align-items: center; }
 .r-recusa .ano { font: 850 1.3rem var(--f-display); }
 .r-recusa .par { display: grid; grid-template-columns: 1fr 90px; gap: 5px 14px; align-items: center; }
 .r-trilho.fino { height: 16px; border-radius: 6px; }
@@ -126,7 +131,7 @@ body.rapido { height: 100dvh; overflow: hidden; display: grid; grid-template-row
 body.rapido.estande { --escala: 1.12; }
 
 @media (max-width: 860px) {
-  .r-duas, .r-lentes { grid-template-columns: 1fr; }
+  .r-duas, .r-lentes, .r-blocos-recusa { grid-template-columns: 1fr; }
   .r-duas { text-align: center; }
   .r-mapa { max-height: 34vh; }
   .r-linha { grid-template-columns: 1fr; }

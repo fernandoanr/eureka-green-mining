@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=20261012b">
-<link rel="stylesheet" href="../assets/css/rapido.css?v=20261012b">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261012c">
+<link rel="stylesheet" href="../assets/css/rapido.css?v=20261012c">
 </head>
 <body class="rapido">
 
@@ -114,13 +114,21 @@
 <section class="r-tela" data-mais="comparacao" aria-label="O resultado do plano">
   <p class="olho">O resultado na simulação</p>
   <h2>Quanto material fica para trás</h2>
-  <div class="r-legenda-recusa">
-    <span><i class="sem"></i>Sem os ajustes do trabalho</span>
-    <span><i class="com"></i>Com o plano completo</span>
+  <div class="r-blocos-recusa">
+    <article class="r-bloco">
+      <span class="r-bloco-anos">2026 e 2027</span>
+      <h3>Realocar duas prensas praticamente zera a recusa</h3>
+      <div class="r-legenda-recusa"><span><i class="sem"></i>Estrutura atual</span><span><i class="com"></i>Com duas prensas realocadas</span></div>
+      <div class="r-recusas" id="r-recusas-1"></div>
+    </article>
+    <article class="r-bloco">
+      <span class="r-bloco-anos">2028 a 2030</span>
+      <h3>A simulação corrige o que a conta média não via</h3>
+      <div class="r-legenda-recusa"><span><i class="sem"></i>Só a conta da capacidade</span><span><i class="com"></i>Com os ajustes da simulação</span></div>
+      <div class="r-recusas" id="r-recusas-2"></div>
+    </article>
   </div>
-  <div class="r-recusas" id="r-recusas"></div>
-  <p class="r-escala">Material recusado sobre a demanda. Sem os ajustes: estrutura atual em 2026 e 2027, e só a conta da capacidade de 2028 a 2030.</p>
-  <p class="r-sub r-centro">De 2028 em diante a trava estava no hub, com estoque médio de <b>363,07&nbsp;m³</b>. Com os ajustes da simulação, ele cai para <b>45,90&nbsp;m³</b>.</p>
+  <p class="r-sub r-centro">Material recusado sobre a demanda. De 2028 em diante a trava estava no hub, com estoque médio de <b>363,07&nbsp;m³</b>, que cai para <b>45,90&nbsp;m³</b> com os ajustes.</p>
 </section>
 
 <!-- 8. O VALOR -->
@@ -154,7 +162,7 @@
   <button type="button" class="seta" id="r-prox" aria-label="Próxima tela">›</button>
 </nav>
 
-<script src="../assets/js/dados.js?v=20261012b"></script>
-<script src="../assets/js/rapido.js?v=20261012b"></script>
+<script src="../assets/js/dados.js?v=20261012c"></script>
+<script src="../assets/js/rapido.js?v=20261012c"></script>
 </body>
 </html>
