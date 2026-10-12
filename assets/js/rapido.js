@@ -181,8 +181,8 @@
   (function () {
     var LENTES = {
       rccp: {
-        anos: [2025, 2026, 2027, 2028, 2029, 2030], max: 450, limite: true,
-        linhas: [["Caminhão", function (a) { return D.semMudanca[a].transporte; }], ["Equipes dos centros", function (a) { return D.semMudanca[a].centros; }]],
+        anos: [2025, 2026, 2027, 2028, 2029, 2030], max: 450,
+        linhas: [["Caminhão", "transporte", true], ["Equipes dos centros", "centros", true]], fonte: D.semMudanca,
         recados: {
           2025: "Em 2025 tudo cabe. O caminhão é o recurso mais carregado da rede.",
           2026: "Em 2026 o caminhão já trabalha perto do limite.",
@@ -193,12 +193,12 @@
         }
       },
       sim: {
-        anos: [2025, 2026, 2027], max: 100, limite: false,
-        linhas: [["Material recusado", function (a) { return D.simSemMudanca[a].recusa; }]],
+        anos: [2025, 2026, 2027], max: 150, fonte: D.simSemMudanca,
+        linhas: [["Caminhão", "transporte", true], ["Equipes dos centros", "centros", true], ["Material recusado", "recusa", false]],
         recados: {
-          2025: "Em 2025 a simulação confirma a folga: nada é recusado e o estoque médio fica em 11,64 m³ por centro.",
-          2026: "Em 2026 a conta média ainda fecha, mas a simulação já recusa 9,53% do material. O caminhão roda a 107,46%.",
-          2027: "Em 2027 os estoques dos centros chegam ao limite físico e 34,03% do material fica para trás."
+          2025: "Em 2025 a simulação reproduz a operação: caminhão a 79,58%, nada recusado e estoque médio de 11,64 m³ por centro.",
+          2026: "Em 2026 a conta média ainda via folga, mas o caminhão passa do limite, o estoque médio sobe para 16,37 m³ e 9,53% do material é recusado.",
+          2027: "Em 2027 o caminhão segue acima do limite, os estoques chegam a 22,14 m³ em média e 34,03% do material fica para trás."
         }
       }
     };
@@ -212,12 +212,12 @@
       barras.innerHTML = ""; anos.innerHTML = "";
       linhas = lente.linhas.map(function (r) {
         var d = document.createElement("div"); d.className = "r-barra";
-        d.innerHTML = "<b>" + r[0] + '</b><div class="r-trilho"><i></i>' + (lente.limite ? '<span class="limite" style="left:' + (100 / lente.max * 100) + '%"></span>' : "") + '</div><span class="r-valor"></span>';
+        d.innerHTML = "<b>" + r[0] + '</b><div class="r-trilho"><i></i>' + (r[2] ? '<span class="limite" style="left:' + (100 / lente.max * 100) + '%"></span>' : "") + '</div><span class="r-valor"></span>';
         barras.appendChild(d);
-        return { valorDe: r[1], barra: $("i", d), valor: $(".r-valor", d) };
+        return { chave: r[1], limite: r[2], barra: $("i", d), valor: $(".r-valor", d) };
       });
       var escala = document.createElement("p"); escala.className = "r-escala";
-      escala.textContent = lente.limite ? "A linha branca marca 100% da capacidade" : "Parte do material que chega e não encontra espaço";
+      escala.textContent = "A linha branca marca 100% da capacidade";
       barras.appendChild(escala);
       botoes = lente.anos.map(function (a, i) {
         var b = document.createElement("button"); b.type = "button"; b.textContent = a; b.setAttribute("aria-pressed", "false");
@@ -229,7 +229,7 @@
       var a = lente.anos[i]; idx = i;
       botoes.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
       linhas.forEach(function (l) {
-        var v = l.valorDe(a), estoura = lente.limite ? v > 100 : v > 0;
+        var v = lente.fonte[a][l.chave], estoura = l.limite ? v > 100 : v > 0;
         l.barra.style.width = Math.max(v > 0 ? 1 : 0, Math.min(100, v / lente.max * 100)) + "%";
         l.barra.classList.toggle("estoura", estoura);
         l.valor.textContent = f2.format(v) + "%";

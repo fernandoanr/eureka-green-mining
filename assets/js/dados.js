@@ -29,11 +29,11 @@ window.TCC = {
     2030: { transporte: 324.79, centros: 433.84, hub: 82.48, cobertura: 0.8 }
   },
 
-  /* Simulação da estrutura atual, sem mudanças */
+  /* Simulação da estrutura atual, sem mudanças (média de 5 replicações) */
   simSemMudanca: {
-    2025: { recusa: 0.0, veiculo: 79.58, estoqueCentro: 11.64, estoqueHub: 29.45 },
-    2026: { recusa: 9.53, veiculo: 107.46 },
-    2027: { recusa: 34.03 }
+    2025: { transporte: 79.58, centros: 18.83, recusa: 0.0, estoqueCentro: 11.64, estoqueHub: 29.45 },
+    2026: { transporte: 107.46, centros: 34.41, recusa: 9.53, estoqueCentro: 16.37, estoqueHub: 32.35 },
+    2027: { transporte: 107.21, centros: 38.92, recusa: 34.03, estoqueCentro: 22.14, estoqueHub: 32.29 }
   },
 
   medidasIsoladas: [
