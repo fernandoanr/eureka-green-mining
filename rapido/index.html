@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Green Mining - Versão rápida</title>
+<meta name="description" content="O TCC da Green Mining em 3 minutos: o desafio, a operação, o método e o plano até 2030. Eureka 2026, Stand 9.">
+<meta name="theme-color" content="#0b1110">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261012a">
+<link rel="stylesheet" href="../assets/css/rapido.css?v=20261012a">
+</head>
+<body class="rapido">
+
+<header class="r-topo">
+  <a class="barra-marca" href="../" aria-label="Versão completa">
+    <img src="../assets/img/logo-green-mining.png" alt="Green Mining" width="1920" height="361">
+  </a>
+  <div class="r-progresso" id="r-progresso" role="tablist" aria-label="Telas da apresentação"></div>
+  <div class="r-topo-acoes">
+    <a class="botao-estande" href="../">Versão completa</a>
+    <button type="button" class="botao-estande" id="r-tela-cheia" title="Tela cheia">⛶</button>
+  </div>
+</header>
+
+<main class="r-palco" id="r-palco">
+
+<!-- 1. A PERGUNTA -->
+<section class="r-tela" data-mais="problema" aria-label="A pergunta">
+  <div class="r-duas">
+    <div class="r-texto">
+      <p class="olho">Eureka 2026 - Stand 9 - PMN01</p>
+      <h1>A logística reversa da Green Mining aguenta crescer até&nbsp;2030?</h1>
+      <p class="r-sub">Cinco centros de coleta e um hub em São Paulo recebem embalagens pós-consumo e as devolvem à indústria. A operação está crescendo rápido.</p>
+      <div class="logos r-logos">
+        <img src="../assets/img/logo-maua.png" alt="Instituto Mauá de Tecnologia" class="logo-maua">
+        <img src="../assets/img/logo-eureka.png" alt="Eureka 2026" class="logo-eureka">
+      </div>
+    </div>
+    <svg class="r-mapa" id="r-mapa" viewBox="0 0 640 500" role="img" aria-label="Rede da Green Mining com cinco centros de coleta e um hub"></svg>
+  </div>
+</section>
+
+<!-- 2. O DESAFIO -->
+<section class="r-tela" data-mais="desafio" aria-label="O desafio">
+  <p class="olho">O desafio</p>
+  <h2>Em 2030 a rede recebe</h2>
+  <div class="r-gigante"><span class="num" data-alvo="4.48" data-casas="2">4,48</span><span class="r-x">×</span></div>
+  <p class="r-sub r-centro">o material de 2025, com cada vez mais gente trazendo cada vez menos por vez.</p>
+  <div class="r-tres">
+    <div><span class="num">+105%</span><p>de chegadas por ano</p></div>
+    <div><span class="num">+35%</span><p>de material por ano</p></div>
+    <div><span class="num">18,01 → 2,23 kg</span><p>por chegada, de 2025 a 2030</p></div>
+  </div>
+</section>
+
+<!-- 3. A OPERAÇÃO -->
+<section class="r-tela" data-mais="operacao" aria-label="Como a operação funciona">
+  <p class="olho">Como a operação funciona</p>
+  <h2>O caminho de uma embalagem</h2>
+  <svg class="r-fluxo" id="r-fluxo" viewBox="0 0 1200 330" role="img" aria-label="Fluxo simplificado: centro de coleta, caminhão, hub central e reciclador"></svg>
+  <p class="r-legenda-fluxo" id="r-legenda-fluxo" aria-live="polite"></p>
+</section>
+
+<!-- 4. COMO RESPONDEMOS -->
+<section class="r-tela" data-mais="lentes" aria-label="Como respondemos">
+  <p class="olho">Como respondemos</p>
+  <h2>Duas lentes para a mesma operação</h2>
+  <div class="r-lentes">
+    <article>
+      <span class="lente-tag">RCCP</span>
+      <h3>A conta da capacidade</h3>
+      <p>Soma a carga de cada semana e compara com o que cada recurso consegue fazer. Mostra o gargalo e quanto falta.</p>
+      <div class="r-lente-num"><span class="num">72,43%</span><p>de uso do caminhão já em 2025, o recurso mais carregado da rede</p></div>
+    </article>
+    <article class="r-video">
+      <span class="lente-tag">SIMUL8</span>
+      <h3>O filme da operação</h3>
+      <div class="r-video-moldura"><video id="r-simul8" muted playsinline loop preload="metadata" poster="../assets/img/simul8-modelo-anotado.jpg"><source src="../assets/video/simul8.mp4" type="video/mp4"></video></div>
+    </article>
+  </div>
+  <p class="r-selo"><b>15,00</b> viagens por semana na simulação, o mesmo valor medido na operação real.</p>
+</section>
+
+<!-- 5. O QUE DESCOBRIMOS -->
+<section class="r-tela" data-mais="resultados" aria-label="O que descobrimos">
+  <p class="olho">O que descobrimos, sem nenhuma mudança</p>
+  <h2>O gargalo muda de dono</h2>
+  <div class="r-anos" id="r-anos" role="group" aria-label="Ano"></div>
+  <div class="r-barras" id="r-barras"></div>
+  <p class="r-sub r-centro" id="r-recado" aria-live="polite"></p>
+</section>
+
+<!-- 6. O PLANO -->
+<section class="r-tela" data-mais="plano" aria-label="O plano">
+  <p class="olho">O plano</p>
+  <h2>Uma decisão de cada vez, no ano certo</h2>
+  <ol class="r-linha" id="r-linha"></ol>
+  <div class="r-tres">
+    <div><span class="num">0</span><p>investimento em 2026 e 2027, só realocando prensas</p></div>
+    <div><span class="num">1</span><p>prensa comprada em todo o plano</p></div>
+    <div><span class="num">85%</span><p>teto de uso, uma margem para imprevistos</p></div>
+  </div>
+</section>
+
+<!-- 7. O VALOR -->
+<section class="r-tela" data-mais="valor" aria-label="O valor para a empresa">
+  <p class="olho">O que isso vale para a empresa</p>
+  <h2>Crescer com evidência, e não por reação</h2>
+  <div class="r-tres">
+    <div><span class="num">0,30%</span><p>de material recusado em 2028 com o plano, contra 28,75% sem os ajustes da simulação</p></div>
+    <div><span class="num">2 anos</span><p>de antecedência na decisão do segundo caminhão</p></div>
+    <div><span class="num">1</span><p>ferramenta própria para a empresa refazer a análise todo ano</p></div>
+  </div>
+  <blockquote class="citacao r-citacao">
+    <p>“Nunca fiz esse quantitativo, então isso traz uma novidade super relevante para a empresa.”</p>
+    <footer>Green Mining, na apresentação dos resultados à empresa</footer>
+  </blockquote>
+  <div class="r-final">
+    <img src="../assets/img/qr-site.svg" alt="QR code para abrir o site completo no celular" width="150" height="150">
+    <div>
+      <p>Quer ver os detalhes? Leve o projeto no celular ou abra a versão completa.</p>
+      <a class="botao botao-cheio" href="../">Ver a versão completa</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<nav class="r-controles" aria-label="Navegação da apresentação">
+  <button type="button" class="seta" id="r-ant" aria-label="Tela anterior">‹</button>
+  <span class="r-contador" id="r-contador">1 / 7</span>
+  <a class="r-mais" id="r-mais" href="../#problema">Aprofundar este tema →</a>
+  <button type="button" class="seta" id="r-prox" aria-label="Próxima tela">›</button>
+</nav>
+
+<script src="../assets/js/dados.js?v=20261012a"></script>
+<script src="../assets/js/rapido.js?v=20261012a"></script>
+</body>
+</html>
