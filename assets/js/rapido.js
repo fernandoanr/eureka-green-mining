@@ -336,7 +336,7 @@
   $("#r-ant").addEventListener("click", function () { vai(atual - 1); });
   $("#r-prox").addEventListener("click", function () { vai(atual + 1); });
   document.addEventListener("keydown", function (e) {
-    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.altKey || e.ctrlKey || e.metaKey || document.querySelector("dialog[open]")) return;
     if (["ArrowRight", "ArrowDown", "PageDown", " "].indexOf(e.key) >= 0) { e.preventDefault(); vai(atual + 1); }
     else if (["ArrowLeft", "ArrowUp", "PageUp"].indexOf(e.key) >= 0) { e.preventDefault(); vai(atual - 1); }
     else if (e.key === "Home") vai(0);

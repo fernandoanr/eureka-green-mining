@@ -151,3 +151,5 @@ body.rapido.estande { --escala: 1.12; }
   .r-final { flex-direction: column; text-align: center; }
   .r-topo-acoes .botao-estande:first-child { display: none; }
 }
+.r-ponte { justify-content: flex-start; }
+@media (max-width: 560px) { .r-ponte { justify-content: center; } }

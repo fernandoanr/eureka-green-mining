@@ -430,3 +430,47 @@ body.com-tela-cheia { overflow: hidden; }
 @media (max-width: 560px) { .modelo-info { grid-template-columns: 34px 1fr 34px; padding: 10px 8px; } .seta { width: 34px; height: 34px; } .midia-topo #tela-cheia { margin-left: auto; } }
 .so-celular { display: none; }
 @media (max-width: 860px) { .so-celular { display: inline; } }
+
+/* Ponte para a Eureka e cartões de contato */
+.ponte { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.cartoes { display: grid; gap: 10px; }
+.cartao { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; background: var(--placa); border: 1px solid var(--borda); border-radius: 14px; padding: 14px 16px; text-align: left; }
+.cartao-sigla { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--gm); font: 800 1rem var(--f-display); color: #fff; }
+.cartao-dados { display: grid; gap: 4px; min-width: 0; }
+.cartao-dados strong { font-size: 1.05rem; }
+.cartao-vias { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .92rem; overflow-wrap: anywhere; }
+.cartao-vias a { color: var(--neon); text-decoration: none; }
+.cartao-vias.vazio { color: var(--suave); font-style: italic; }
+.cartao-salvar { font: 600 .82rem var(--f-dado); color: var(--texto); background: transparent; border: 1px solid var(--gm); border-radius: 999px; padding: 7px 12px; cursor: pointer; white-space: nowrap; }
+.cartao-salvar:hover { background: rgba(17,137,97,.2); }
+.contato-dialogo { width: min(94vw, 620px); max-height: 90vh; padding: 0; border: 1px solid var(--borda); border-radius: 16px; background: var(--chao-2); color: var(--texto); }
+.contato-dialogo::backdrop { background: rgba(0,0,0,.7); }
+.contato-dialogo[open] { display: grid; grid-template-rows: auto 1fr; }
+.contato-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--borda); }
+.contato-topo button { font: 600 .9rem var(--f-dado); color: var(--texto); background: var(--placa); border: 1px solid var(--borda); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.contato-corpo { overflow-y: auto; padding: 16px 18px 20px; display: grid; gap: 12px; }
+.contato-corpo .olho { margin: 0; }
+@media (max-width: 560px) {
+  .cartao { grid-template-columns: auto 1fr; }
+  .cartao-salvar { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* Página de contato (destino do QR code) */
+.levar { width: min(100%, 560px); margin: 0 auto; padding: 28px var(--gutter) 40px; display: grid; gap: 16px; }
+.levar-logo { height: 30px; width: auto; }
+.levar h1 { margin: 0; font-size: clamp(2rem, 8vw, 2.8rem); text-transform: uppercase; line-height: 1.02; }
+.levar-sub { margin: 0; color: var(--suave); }
+.levar-links { display: grid; gap: 10px; margin-top: 6px; }
+.levar-link { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px; border: 1px solid var(--gm); border-radius: 14px; background: var(--placa); color: var(--texto); text-decoration: none; }
+.levar-link span { display: grid; gap: 2px; }
+.levar-link small { color: var(--suave); font-size: .9rem; }
+.levar-link b { font-size: 1.3rem; color: var(--neon); }
+.levar-link.destaque { background: var(--gm); border-color: var(--neon); }
+.levar-link.destaque small { color: #d7f5e6; }
+.levar-link.destaque b { color: #fff; }
+.levar-equipe { display: grid; gap: 10px; margin-top: 10px; }
+.levar-equipe .olho { margin: 0; }
+.levar-logos { margin-top: 10px; }
+.contato-levar { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+.contato-levar img { background: #fff; border-radius: 10px; padding: 6px; width: 96px; height: 96px; }
+.contato-levar p { margin: 0; color: var(--suave); font-size: .92rem; }

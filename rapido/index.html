@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=20261012d">
-<link rel="stylesheet" href="../assets/css/rapido.css?v=20261012d">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261015a">
+<link rel="stylesheet" href="../assets/css/rapido.css?v=20261015a">
 </head>
 <body class="rapido">
 
@@ -145,15 +145,31 @@
     <footer>Green Mining, na apresentação dos resultados à empresa</footer>
   </blockquote>
   <div class="r-final">
-    <img src="../assets/img/qr-site.svg" alt="QR code para abrir o site completo no celular" width="150" height="150">
+    <img src="../assets/img/qr-contato.svg" alt="QR code com a página da Eureka, os contatos da equipe e o site" width="150" height="150">
     <div>
-      <p>Quer ver os detalhes? Leve o projeto no celular ou abra a versão completa.</p>
-      <a class="botao botao-cheio" href="../">Ver a versão completa</a>
+      <p>Aponte a câmera e leve tudo: página da Eureka, contatos e o site completo.</p>
+      <div class="ponte r-ponte">
+        <a class="botao botao-cheio" data-eureka href="#">Nosso trabalho na Eureka ↗</a>
+        <button type="button" class="botao" data-abre-contato>Cartão de contato</button>
+        <a class="botao" href="../">Versão completa</a>
+      </div>
     </div>
   </div>
 </section>
 
 </main>
+
+<!-- Cartões de contato da equipe -->
+<dialog class="contato-dialogo" id="contato" aria-labelledby="contato-titulo">
+  <div class="contato-topo">
+    <strong id="contato-titulo">Fale com a equipe</strong>
+    <button type="button" data-fecha>Fechar</button>
+  </div>
+  <div class="contato-corpo">
+    <div class="cartoes" data-cartoes></div>
+    <div class="contato-levar"><img src="../assets/img/qr-contato.svg" alt="QR code da página de contatos" width="96" height="96"><p>Aponte a câmera do celular para salvar os contatos e abrir a página da Eureka.</p></div>
+  </div>
+</dialog>
 
 <nav class="r-controles" aria-label="Navegação da apresentação">
   <button type="button" class="seta" id="r-ant" aria-label="Tela anterior">‹</button>
@@ -162,7 +178,8 @@
   <button type="button" class="seta" id="r-prox" aria-label="Próxima tela">›</button>
 </nav>
 
-<script src="../assets/js/dados.js?v=20261012d"></script>
-<script src="../assets/js/rapido.js?v=20261012d"></script>
+<script src="../assets/js/dados.js?v=20261015a"></script>
+<script src="../assets/js/rapido.js?v=20261015a"></script>
+<script src="../assets/js/contato.js?v=20261015a"></script>
 </body>
 </html>

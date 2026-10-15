@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=20261011e">
+<link rel="stylesheet" href="assets/css/style.css?v=20261015a">
 </head>
 <body>
 
@@ -475,8 +475,12 @@
         </div>
       </div>
       <div class="qr">
-        <img src="assets/img/qr-site.svg" alt="QR code para abrir este site no celular" width="220" height="220">
-        <p>Leve o projeto no celular</p>
+        <img src="assets/img/qr-contato.svg" alt="QR code com a página da Eureka, os contatos da equipe e este site" width="220" height="220">
+        <p>Aponte a câmera e leve tudo: página da Eureka, contatos e o site</p>
+        <div class="ponte">
+          <a class="botao botao-mini botao-cheio" data-eureka href="#">Nosso trabalho na Eureka ↗</a>
+          <button type="button" class="botao botao-mini" data-abre-contato>Cartão de contato</button>
+        </div>
         <a href="https://github.com/fernandoanr/tcc-green-mining-capacidade" target="_blank" rel="noopener">Códigos do trabalho no GitHub</a>
       </div>
     </div>
@@ -484,6 +488,18 @@
 </section>
 
 </main>
+
+<!-- Cartões de contato da equipe -->
+<dialog class="contato-dialogo" id="contato" aria-labelledby="contato-titulo">
+  <div class="contato-topo">
+    <strong id="contato-titulo">Fale com a equipe</strong>
+    <button type="button" data-fecha>Fechar</button>
+  </div>
+  <div class="contato-corpo">
+    <div class="cartoes" data-cartoes></div>
+    <div class="contato-levar"><img src="assets/img/qr-contato.svg" alt="QR code da página de contatos" width="96" height="96"><p>Aponte a câmera do celular para salvar os contatos e abrir a página da Eureka.</p></div>
+  </div>
+</dialog>
 
 <!-- Visualizador do BPMN -->
 <dialog class="bpmn" id="bpmn">
@@ -504,11 +520,12 @@
 <button type="button" class="fechar-tela" id="sair-tela" aria-label="Sair da tela cheia" hidden>✕ Fechar</button>
 <div class="aviso-estande" id="aviso-estande" hidden>Apresentação automática - toque em qualquer lugar para explorar</div>
 
-<script src="assets/js/rccp/arrival-profile-2025.js?v=20261011e"></script>
-<script src="assets/js/rccp/rccp-model.js?v=20261011e"></script>
-<script src="assets/js/rccp/rccp-baseline.js?v=20261011e"></script>
-<script src="assets/js/dados.js?v=20261011e"></script>
-<script src="assets/js/simulador.js?v=20261011e"></script>
-<script src="assets/js/app.js?v=20261011e"></script>
+<script src="assets/js/rccp/arrival-profile-2025.js?v=20261015a"></script>
+<script src="assets/js/rccp/rccp-model.js?v=20261015a"></script>
+<script src="assets/js/rccp/rccp-baseline.js?v=20261015a"></script>
+<script src="assets/js/dados.js?v=20261015a"></script>
+<script src="assets/js/simulador.js?v=20261015a"></script>
+<script src="assets/js/app.js?v=20261015a"></script>
+<script src="assets/js/contato.js?v=20261015a"></script>
 </body>
 </html>
