@@ -4,12 +4,11 @@
 
   var EUREKA = "https://eureka.maua.br/trabalho/Planejamento%20agregado%20em%20sistemas%20de%20log%C3%ADstica%20reversa:%20aplica%C3%A7%C3%A3o%20a%20Green%20Mining-934";
 
-  /* Preencher com os dados que a equipe enviar; campo vazio não aparece no cartão */
   var EQUIPE = [
-    { nome: "Fernando Andrade Rodrigues", email: "", linkedin: "", telefone: "" },
-    { nome: "Gabriel Camargo Pinceli", email: "", linkedin: "", telefone: "" },
-    { nome: "Isabella Ascenção", email: "", linkedin: "", telefone: "" },
-    { nome: "Kaio Rocha Barbosa", email: "", linkedin: "", telefone: "" }
+    { nome: "Fernando Andrade Rodrigues", email: "farcorporation@hotmail.com", linkedin: "https://www.linkedin.com/in/fernando-andrade-rodrigues", telefone: "+55 11 99688-3068" },
+    { nome: "Gabriel Camargo Pinceli", email: "gabrielpinceli@gmail.com", linkedin: "https://www.linkedin.com/in/gabriel-camargo-pinceli-419a82231", telefone: "+55 11 98604-0660" },
+    { nome: "Isabella Ascenção", email: "bella.ascencao@gmail.com", linkedin: "https://www.linkedin.com/in/isabella-ascencao-b1685123b", telefone: "+55 11 99275-9788" },
+    { nome: "Kaio Rocha Barbosa", email: "kaiorochabarbosa@gmail.com", linkedin: "https://www.linkedin.com/in/kaio-rocha-barbosa-", telefone: "+55 11 95268-9556" }
   ];
   var ORG = "Engenharia de Produção - Instituto Mauá de Tecnologia";
 
