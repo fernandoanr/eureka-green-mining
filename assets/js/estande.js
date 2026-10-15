@@ -34,12 +34,12 @@
   el("rect", { class: "m-bloco m-marco", x: MARCO[0], y: MARCO[1], width: MARCO[2] - MARCO[0], height: MARCO[3] - MARCO[1], rx: 4 });
   texto("27 e 28", { class: "m-txt-peq", x: (MARCO[0] + MARCO[2]) / 2, y: 965 });
   el("rect", { class: "m-bloco", x: FILEIRA[0], y: FILEIRA[1], width: FILEIRA[2] - FILEIRA[0], height: FILEIRA[3] - FILEIRA[1], rx: 4 });
-  texto("estandes 02 a 20", { class: "m-txt-peq", x: 1200, y: 1100 });
+  texto("Estandes de 02 a 08", { class: "m-txt-peq", x: 1200, y: 1101 });
 
   el("rect", { class: "m-cred", x: CRED[0], y: CRED[1], width: CRED[2] - CRED[0], height: CRED[3] - CRED[1], rx: 4 });
-  texto("Credenciamento", { class: "m-txt", x: 1396, y: 700, "text-anchor": "end" });
-  texto("Entrada", { class: "m-txt-peq", x: 1508, y: 962 });
-  el("path", { class: "m-seta", d: "M1556,987 h-44 m12,-12 l-12,12 l12,12" });
+  texto("Credenciamento", { class: "m-txt", x: 1492, y: 655, "text-anchor": "end" });
+  texto("Entrada", { class: "m-txt-peq", x: 1545, y: 1024 });
+  el("path", { class: "m-seta", d: "M1590,987 h-70 m12,-12 l-12,12 l12,12" });
 
   var d = "M" + CAMINHO.map(function (p) { return p.join(","); }).join(" L");
   el("path", { class: "m-trilha", d: d });
@@ -62,6 +62,30 @@
   }
   var passos = Array.prototype.slice.call(document.querySelectorAll("#passos-estande li"));
   function marca(n) { passos.forEach(function (li, k) { li.classList.toggle("atual", k === n); }); }
+
+  /* Tela cheia: nativa quando o navegador deixa, e camada fixa como reserva (iPhone) */
+  var caixa = document.getElementById("levar-mapa"), botao = document.getElementById("mapa-cheia");
+  if (!caixa) botao = null;
+  function cheia(liga) {
+    caixa.classList.toggle("mapa-tela-cheia", liga);
+    document.body.classList.toggle("sem-rolagem", liga);
+    botao.textContent = liga ? "✕ Fechar" : "⛶ Tela cheia";
+    botao.setAttribute("aria-label", liga ? "Fechar a tela cheia" : "Ver o mapa em tela cheia");
+    var giro = screen.orientation;
+    if (liga && caixa.requestFullscreen) {
+      /* No Android o mapa já deita sozinho; no iPhone fica a dica de girar o celular */
+      caixa.requestFullscreen().then(function () { if (giro && giro.lock) return giro.lock("landscape"); }).catch(function () {});
+    }
+    if (!liga) {
+      if (giro && giro.unlock) try { giro.unlock(); } catch (e) {}
+      if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
+    }
+  }
+  if (botao) {
+    botao.addEventListener("click", function () { cheia(!caixa.classList.contains("mapa-tela-cheia")); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && caixa.classList.contains("mapa-tela-cheia")) cheia(false); });
+    document.addEventListener("fullscreenchange", function () { if (!document.fullscreenElement && caixa.classList.contains("mapa-tela-cheia")) cheia(false); });
+  }
 
   luz.style.strokeDasharray = total;
   if (reduz) { luz.style.strokeDashoffset = 0; andarilho.setAttribute("cx", CAMINHO[3][0]); andarilho.setAttribute("cy", CAMINHO[3][1]); marca(-1); return; }

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=20261015c">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261015d">
 </head>
 <body class="pagina-contato">
 
@@ -30,18 +30,26 @@
     <a class="levar-link" href="../rapido/">
       <span><strong>Versão rápida</strong><small>O projeto em 3 minutos</small></span><b aria-hidden="true">→</b>
     </a>
-  </nav>
 
-  <section class="levar-mapa" aria-label="Como chegar ao estande">
-    <p class="olho">Como chegar ao estande</p>
-    <h2>Do credenciamento ao estande 09</h2>
-    <svg class="mapa-estande" id="mapa-estande" viewBox="530 400 1040 790" role="img" aria-label="Planta do ginásio com o caminho do credenciamento até o estande 09"></svg>
-    <ol class="levar-passos" id="passos-estande">
-      <li>Do credenciamento, siga pelo corredor lateral até o último corredor do ginásio.</li>
-      <li>Vire nesse corredor e caminhe até ficar em frente aos estandes 27 e 28.</li>
-      <li>Chegou: o estande 09, da Green Mining, fica na fileira junto à parede.</li>
-    </ol>
-  </section>
+    <details class="levar-link levar-dobra" id="como-chegar">
+      <summary>
+        <span><strong>Como chegar ao estande</strong><small>Do credenciamento ao estande 09</small></span><b aria-hidden="true">⌄</b>
+      </summary>
+      <div class="levar-mapa" id="levar-mapa">
+        <div class="mapa-topo">
+          <span class="mapa-titulo">Planta do ginásio - Stand 9</span>
+          <button type="button" class="mapa-cheia" id="mapa-cheia" aria-label="Ver o mapa em tela cheia">⛶ Tela cheia</button>
+        </div>
+        <svg class="mapa-estande" id="mapa-estande" viewBox="530 400 1070 790" role="img" aria-label="Planta do ginásio com o caminho do credenciamento até o estande 09"></svg>
+        <p class="mapa-dica">Gire o celular para ver o mapa maior.</p>
+        <ol class="levar-passos" id="passos-estande">
+          <li>Do credenciamento, siga pelo corredor lateral até o último corredor do ginásio.</li>
+          <li>Vire nesse corredor e caminhe até ficar em frente aos estandes 27 e 28.</li>
+          <li>Chegou: o estande 09, da Green Mining, fica na fileira junto à parede.</li>
+        </ol>
+      </div>
+    </details>
+  </nav>
 
   <section class="levar-equipe" aria-label="Fale com a equipe">
     <p class="olho">Fale com a equipe</p>
@@ -49,12 +57,13 @@
   </section>
 
   <div class="logos levar-logos">
-    <img src="../assets/img/logo-maua.png" alt="Instituto Mauá de Tecnologia" class="logo-maua">
-    <img src="../assets/img/logo-eureka.png" alt="Eureka 2026" class="logo-eureka">
+    <a href="https://www.maua.br" target="_blank" rel="noopener"><img src="../assets/img/logo-maua.png" alt="Instituto Mauá de Tecnologia" class="logo-maua"></a>
+    <a href="https://eureka.maua.br" target="_blank" rel="noopener"><img src="../assets/img/logo-eureka.png" alt="Eureka 2026" class="logo-eureka"></a>
+    <a href="https://greenmining.com.br" target="_blank" rel="noopener"><img src="../assets/img/logo-green-mining.png" alt="Green Mining" class="logo-gm"></a>
   </div>
 </main>
 
-<script src="../assets/js/contato.js?v=20261015c"></script>
-<script src="../assets/js/estande.js?v=20261015c"></script>
+<script src="../assets/js/contato.js?v=20261015d"></script>
+<script src="../assets/js/estande.js?v=20261015d"></script>
 </body>
 </html>
