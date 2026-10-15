@@ -5,11 +5,13 @@
   var EUREKA = "https://eureka.maua.br/trabalho/Planejamento%20agregado%20em%20sistemas%20de%20log%C3%ADstica%20reversa:%20aplica%C3%A7%C3%A3o%20a%20Green%20Mining-934";
 
   var EQUIPE = [
-    { nome: "Fernando Andrade Rodrigues", email: "farcorporation@hotmail.com", linkedin: "https://www.linkedin.com/in/fernando-andrade-rodrigues", telefone: "+55 11 99688-3068" },
-    { nome: "Gabriel Camargo Pinceli", email: "gabrielpinceli@gmail.com", linkedin: "https://www.linkedin.com/in/gabriel-camargo-pinceli-419a82231", telefone: "+55 11 98604-0660" },
-    { nome: "Isabella Ascenção", email: "bella.ascencao@gmail.com", linkedin: "https://www.linkedin.com/in/isabella-ascencao-b1685123b", telefone: "+55 11 99275-9788" },
-    { nome: "Kaio Rocha Barbosa", email: "kaiorochabarbosa@gmail.com", linkedin: "https://www.linkedin.com/in/kaio-rocha-barbosa-", telefone: "+55 11 95268-9556" }
+    { nome: "Fernando Andrade Rodrigues", foto: "fernando", email: "farcorporation@hotmail.com", linkedin: "https://www.linkedin.com/in/fernando-andrade-rodrigues", telefone: "+55 11 99688-3068" },
+    { nome: "Gabriel Camargo Pinceli", foto: "gabriel", email: "gabrielpinceli@gmail.com", linkedin: "https://www.linkedin.com/in/gabriel-camargo-pinceli-419a82231", telefone: "+55 11 98604-0660" },
+    { nome: "Isabella Ascenção", foto: "isabella", email: "bella.ascencao@gmail.com", linkedin: "https://www.linkedin.com/in/isabella-ascencao-b1685123b", telefone: "+55 11 99275-9788" },
+    { nome: "Kaio Rocha Barbosa", foto: "kaio", email: "kaiorochabarbosa@gmail.com", linkedin: "https://www.linkedin.com/in/kaio-rocha-barbosa-", telefone: "+55 11 95268-9556" }
   ];
+  /* Caminho das fotos relativo à página (raiz, rapido/ ou contato/) */
+  var BASE = (document.querySelector('script[src*="contato.js"]').getAttribute("src").split("assets/js/")[0]);
   var ORG = "Engenharia de Produção - Instituto Mauá de Tecnologia";
 
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -40,7 +42,8 @@
     if (p.email) vias.push('<a href="mailto:' + esc(p.email) + '">' + esc(p.email) + "</a>");
     if (p.telefone) vias.push('<a href="tel:' + esc(p.telefone.replace(/[^\d+]/g, "")) + '">' + esc(p.telefone) + "</a>");
     if (p.linkedin) vias.push('<a href="' + esc(p.linkedin) + '" target="_blank" rel="noopener">LinkedIn</a>');
-    el.innerHTML = '<span class="cartao-sigla" aria-hidden="true">' + iniciais(p.nome) + "</span>" +
+    var rosto = p.foto ? '<img class="cartao-foto" src="' + BASE + "assets/img/equipe/" + p.foto + '.jpg" alt="Foto de ' + esc(p.nome) + '" width="240" height="240" loading="lazy">' : '<span class="cartao-sigla" aria-hidden="true">' + iniciais(p.nome) + "</span>";
+    el.innerHTML = rosto +
       '<div class="cartao-dados"><strong>' + esc(p.nome) + "</strong>" +
       (vias.length ? '<p class="cartao-vias">' + vias.join("") + "</p>" : '<p class="cartao-vias vazio">Contato a preencher</p>') +
       "</div>" + '<button type="button" class="cartao-salvar">Salvar contato</button>';

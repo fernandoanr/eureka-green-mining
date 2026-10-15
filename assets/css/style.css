@@ -474,3 +474,34 @@ body.com-tela-cheia { overflow: hidden; }
 .contato-levar { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
 .contato-levar img { background: #fff; border-radius: 10px; padding: 6px; width: 96px; height: 96px; }
 .contato-levar p { margin: 0; color: var(--suave); font-size: .92rem; }
+.cartao-foto { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gm); }
+
+/* Como chegar ao estande */
+.levar-mapa { display: grid; gap: 10px; margin-top: 10px; }
+.levar-mapa .olho { margin: 0; }
+.levar-mapa h2 { margin: 0; font-size: clamp(1.3rem, 5vw, 1.7rem); text-transform: uppercase; }
+.mapa-estande { width: 100%; height: auto; background: var(--chao-2); border: 1px solid var(--borda); border-radius: 14px; }
+.mapa-estande .m-salao { fill: none; stroke: var(--borda); stroke-width: 3; stroke-dasharray: 2 10; }
+.mapa-estande .m-bloco { fill: var(--placa); stroke: #2a3a36; stroke-width: 2; }
+.mapa-estande .m-marco { stroke: var(--gm); }
+.mapa-estande .m-cred { fill: var(--gm); stroke: var(--neon); stroke-width: 2; }
+.mapa-estande .m-txt { fill: var(--texto); font: 700 30px var(--f-corpo); }
+.mapa-estande .m-txt-peq { fill: var(--suave); font: 600 24px var(--f-dado); text-anchor: middle; }
+.mapa-estande .m-seta { fill: none; stroke: var(--suave); stroke-width: 3; }
+.mapa-estande .m-trilha { fill: none; stroke: #2a3a36; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.mapa-estande .m-luz { fill: none; stroke: var(--neon); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(20,224,117,.7)); }
+.mapa-estande .m-inicio { fill: var(--chao); stroke: var(--neon); stroke-width: 4; }
+.mapa-estande .m-andarilho { fill: #fff; stroke: var(--neon); stroke-width: 5; }
+.mapa-estande .m-estande { fill: var(--gm); stroke: var(--neon); stroke-width: 3; }
+.mapa-estande .m-aura { fill: var(--neon); opacity: .18; }
+.mapa-estande .m-num { fill: #fff; font: 800 26px var(--f-display); text-anchor: middle; }
+.mapa-estande .m-txt-alvo { fill: var(--neon); text-anchor: middle; }
+@media (prefers-reduced-motion: no-preference) {
+  .mapa-estande .m-alvo.chegou .m-aura { animation: pulso 0.9s ease-in-out infinite alternate; }
+}
+@keyframes pulso { from { opacity: .15; } to { opacity: .55; } }
+.levar-passos { margin: 0; padding: 0; list-style: none; counter-reset: passo; display: grid; gap: 8px; }
+.levar-passos li { counter-increment: passo; display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; color: var(--suave); transition: color .3s; }
+.levar-passos li::before { content: counter(passo); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--gm); font: 700 .9rem var(--f-dado); color: var(--texto); transition: background .3s; }
+.levar-passos li.atual { color: var(--texto); }
+.levar-passos li.atual::before { background: var(--gm); border-color: var(--neon); }
